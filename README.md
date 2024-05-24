@@ -94,19 +94,65 @@ pkg-config可用來檢索系統中函式庫的訊息。
 
 帳號、密碼見筆記。
 
+![圖片9](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/400531e7-c126-4de0-af25-5db919a9ee53)
+
 ```tar -zxvf vasp.6.4.1.tgz``` 
 ```gunzip vdw_kernel.bindat.gz```
 解壓縮。
+
 
 ## NEB (vtst)
 網址：[http://theory.cm.utexas.edu/vtsttools/download.html](http://theory.cm.utexas.edu/vtsttools/download.html
 )
 
-![圖片9](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/400531e7-c126-4de0-af25-5db919a9ee53)
-
 ![圖片10](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/7334086f-234e-402d-b8c5-694a5bc536c1)
 
 ```tar -zxvf vtstcode-197.tgz``` 解壓縮。
+
+
+修改方式可能有所更改，請見：
+[http://theory.cm.utexas.edu/vtsttools/installation.html](http://theory.cm.utexas.edu/vtsttools/installation.html)
+
+```main.F```
+
+```IF (LCHAIN) CALL chain_init( T_INFO, IO)```
+
+改成
+
+```CALL chain_init( T_INFO, IO)```
+
+``` CALL CHAIN_FORCE(T_INFO%NIONS,DYN%POSION,TOTEN,TIFOR, &
+      LATT_CUR%A,LATT_CUR%B,IO%IU6)
+```
+改成
+```
+ CALL CHAIN_FORCE(T_INFO%NIONS,DYN%POSION,TOTEN,TIFOR, &
+ 	TSIF,LATT_CUR%A,LATT_CUR%B,IO%IU6)
+```
+
+```.objects``` (是個隱藏檔)
+
+添加
+```
+ bfgs.o dynmat.o instanton.o lbfgs.o sd.o cg.o dimer.o \
+ bbm.o fire.o lanczos.o neb.o qm.o \
+ pyamff_fortran/*.o ml_pyamff.o \
+ opt.o \
+```
+在 chain.o 前 (每一列前面都要有 Tab)。
+
+![圖片14](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/0c207b71-5d86-4a66-bd28-4ada45e67ebb)
+
+變成
+
+![圖片15](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/b99bb816-9e4f-4d75-ab8e-4606f6180e6a)
+
+src 內的 makefile
+
+```LIB= lib parser pyamff_fortran```
+
+![圖片16](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/4ae12fa8-95b3-4866-99e5-2d6b52b55167)
+
 
 ## VASPsol
 網址：[https://github.com/henniggroup/VASPsol/tree/master](https://github.com/henniggroup/VASPsol/tree/master)
@@ -115,11 +161,14 @@ pkg-config可用來檢索系統中函式庫的訊息。
 
 ```unzip VASPsol-master.zip``` 解壓縮。
 
+
 將其中的 *solvation.F* 貼到 *src* 資料夾裡，覆蓋原本檔案。
 下指令```patch -p0 < …/VASPsol-master/src/patches/pbz_patch_610```
 - patch 會去修改 src 裡的部分檔案，因此是在VASP的 src 裡運作，並引入 (“<“ 是標準輸入)patch的檔案。
 - 一般使用者進入的IP沒有 patch，故在超級使用者進入的IP下指令。
 在 make.include 檔內的 CPP_OPTIONS 加上```-Dsol_compat```
+
+如下：
 
 ![圖片13](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/39b1b3f7-9ae8-4cf1-999e-1352b8188b38)
 
