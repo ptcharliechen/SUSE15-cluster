@@ -173,3 +173,121 @@ src 內的 makefile
 ![圖片13](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/39b1b3f7-9ae8-4cf1-999e-1352b8188b38)
 
 由於該軟體的 patch 已多年沒有更新，截至今日 (2024/5/24)官方的patch已經刪除，或許近日會補上。icc 仍可以用官方的patch進行編譯，放在 VASPsol-master.zip，不過在 gcc 會報錯，筆者找了非官方的 patch ，放在這個repository的Code裡。
+
+## DFT-D4
+
+網址：[https://github.com/dftd4/dftd4](https://github.com/dftd4/dftd4)
+
+![image](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/7dec3274-8014-4f37-b897-b97f78af34ed)
+
+安裝影片：[https://www.bilibili.com/video/BV1nP4y1g7N2/](https://www.bilibili.com/video/BV1nP4y1g7N2/)
+
+筆者撰寫時只支援 intel C compiler 和 gcc ，所以 AOCC ( AMD 的編譯器，在 AMD 的機器運算效率常比使用 intel 編譯器高) 和 CUDA ( GPU ) 都不支援。
+
+國網中心的主機就有 anaconda ，可以使用 module load anaconda version ；研究室的機器直接用 ```conda init``` ，就會將環境寫入 .bashrc 裡。
+
+### 安裝 Anaconda
+
+如果沒有的話，先下載 anaconda ： ```wget https://repo.anaconda.com/archive/Anaconda3-5.3.0-Linux-x86_64.sh```。
+
+```sh Anaconda3-5.3.0-Linux-x86_64.sh``` 該步驟詳細過程見 [https://ithelp.ithome.com.tw/articles/10237621](https://ithelp.ithome.com.tw/articles/10237621)
+
+安裝後輸入 ```source ~/.bashrc``` ，即可在當前頁面使用 conda。
+
+```conda create -n dftd4 python=3.7``` 為維持基底環境的乾淨，故建立一個虛擬環境，名為 dftd4 ，然後使用 ```conda activate dftd4``` 活化該環境。
+
+```conda install meson -c conda-forge``` 以安裝meson 以及相依套件。
+
+```meson –v``` 以及 ```ninja --version``` 確認 ninja 和 meson 安裝完成。
+
+### 編譯 D4
+
+module intel compiler & Intel MPI
+
+cd [path of dftd4] 位置如下
+
+![圖片1](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/c484fb4d-75cb-428a-b6b7-5083e6dbd961)
+
+```FC=ifort CC=icc meson setup _build -Dfortran_link_args=-qopenmp```
+
+註： intel 2024 的 C compiler 為 icx ，Fortran compiler 為 ifx
+
+```meson test -C _build --print-errorlogs```
+
+```meson configure _build --prefix=~/pkg/vasp.6.4.1/dftd4 -Dapi_v2=true```
+
+```meson install -C _build```
+
+```export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:~/pkg/vasp.6.4.1/dftd4/lib64/pkgconfig/```
+
+加上 ```CPP_OPTIONS += -DDFTD4```
+
+```pkg-config --cflags dftd4```
+
+跑出來的結果寫在 make.include 最後面，添加在參數 INCS 後方。
+
+```pkg-config --libs dftd4```
+
+跑出來的結果寫在 make.include 最後面，添加在參數 LLIBS 後方。
+
+![圖片3](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/f60101c0-62cc-4b4e-9a88-92825b4ec025)
+
+將
+```export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/.../pkg/vasp.6.4.1/dftd4/lib64```
+加到 VASP 環境檔裡 (下圖的環境檔即 vasp_set.sh )
+
+![圖片4](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/361ae1f2-14cd-4765-b6a0-96e18b3ed3de)
+
+![圖片5](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/44ed4876-d8f9-4d2a-8e85-90cba45bcca7)
+
+## gcc 版本
+
+大部分與intel compiler相同，本節僅敘述不同之處。
+
+須另外從網路上取得 Openblas 、 Scalapack 和 fftw 的套件
+
+補充：
+
+BLAS：基礎線性代數操作的數值庫（如向量或矩陣乘法）
+
+LAPACK：解多元線性方程式、線性系統方程組的最小平方解、計算特徵向量、用於計算矩陣QR分解、以及奇異值分解等問題
+
+OpenBLAS 可理解為 BLAS 和 LAPACK 的合併版，有超級使用者權限的話，可以自行安裝，國高可請他們安裝。如果想要自編的話，只有 OpenBLAS ， LAPACK 需要用到 BLAS ，而 BLAS 的源碼過舊，現代編譯器不支援，除非找舊版的編譯器，否則無法自編。
+
+ScaLAPACK：以並行計算求解LAPACK面對的問題
+
+FFTW：快速求解快速傅立葉變換 (Fast Fourier Transformation, FFT) —— 以矩陣求解傅立葉變換，以速度犧牲精度 —— 用於處理週期性結構
+
+從網路上抓檔案用 wget [URL]
+
+取得 URL 的方式：
+
+### Openblas
+
+![image](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/1a81109f-ae0c-48d8-a77c-736b79f7a0a7)
+
+cd [path of openblas]
+
+```make –j8```
+
+make PREFIX=…… install
+
+### FFTW
+
+![image](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/aef15e62-6c34-48ee-b105-1b4cf3915bfd)
+
+./configure --prefix=……
+
+```make && make install```
+
+### ScaLAPACK
+
+![image](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/917f0228-bf73-4aac-864c-ff1defc4ea8c)
+
+cd [path of scalapack]
+
+```mv SLmake.inc.example SLmake.inc```
+
+```make```
+
+
