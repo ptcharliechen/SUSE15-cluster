@@ -290,4 +290,31 @@ cd [path of scalapack]
 
 ```make```
 
+### Solvation Script
+
+由於該軟體的 patch 已多年沒有更新，截至今日 (2023/10/27)官方的patch已經刪除，或許近日會補上。icc 仍可以用官方的patch進行編譯，放在 VASPsol-master.zip，不過在 gcc 會報錯，筆者找了非官方的 patch ，放在 VASPsol-master_gcc.tar.gz 裡。
+
+### DFT-D4
+
+記得用 gcc 編譯
+
+由於要求 cmake 3.14 或更新的版本，因此在國高要 module load cmake ，研究室機器已經更新。
+
+```FC=ifort CC=icc meson setup _build -Dfortran_link_args=-qopenmp```
+
+換成
+
+```FC=gfortran CC=gcc meson setup _build -Dfortran_link_args=-fopenmp -Dlapack=openblas```
+
+## aocc 版本
+
+gcc 在 AMD 機器計算較慢，建議使用 AMD 發布的編譯器： AOCC ，以及搭配它MPI編譯器： OpenMPI 。
+
+與 intel compiler 不同， AOCC 要另外去找 AOCL ( AOCC 的 MKL )，臺三用 module avail 就可以找到合適的。
+
+用 find 取得 libblis.so 、 libflame.so 、 libscalapack.so 和 libfftw3.so 的路徑，分別寫入 AMDBLIS_ROOT 、 AMDLIBFLAME_ROOT 、 AMDSCALAPACK_ROOT 、 AMDFFTW_ROOT (修改這些參數時不能有 lib_LP64 )，下一行的 lib 要改成 lib_LP64 ， fftw 的 include 要改成 include_LP64 。
+
+註： lib_LP64 和 include_LP64 分別為資料夾名稱，代表上述資料夾的位置。
+
+# Conquest
 
