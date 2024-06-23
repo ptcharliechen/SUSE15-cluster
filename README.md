@@ -121,7 +121,10 @@ pkg-config可用來檢索系統中函式庫的訊息。
 
 ```CALL chain_init( T_INFO, IO)```
 
-``` CALL CHAIN_FORCE(T_INFO%NIONS,DYN%POSION,TOTEN,TIFOR, &
+另一部分
+
+```
+ CALL CHAIN_FORCE(T_INFO%NIONS,DYN%POSION,TOTEN,TIFOR, &
       LATT_CUR%A,LATT_CUR%B,IO%IU6)
 ```
 改成
@@ -188,17 +191,18 @@ src 內的 makefile
 
 ### 安裝 Anaconda
 
-如果沒有的話，先下載 anaconda ： ```wget https://repo.anaconda.com/archive/Anaconda3-5.3.0-Linux-x86_64.sh```。
+```
+wget https://repo.anaconda.com/archive/Anaconda3-5.3.0-Linux-x86_64.sh    # 如果沒有的話，先下載 anaconda
+sh Anaconda3-5.3.0-Linux-x86_64.sh                                        # 註釋見下
+source ~/.bashrc                                                          # 安裝後輸入，即可在當前頁面使用 conda。
+conda create -n dftd4 python=3.7                                          # 為維持基底環境的乾淨，故建立一個虛擬環境，名為 dftd4
+conda activate dftd4                                                      # 活化該環境。
+conda install meson -c conda-forge                                        # 安裝 meson 及相依套件。
+meson –v
+ninja --version                                                           # 確認 ninja 和 meson 安裝完成。
+```
 
 ```sh Anaconda3-5.3.0-Linux-x86_64.sh``` 該步驟詳細過程見 [https://ithelp.ithome.com.tw/articles/10237621](https://ithelp.ithome.com.tw/articles/10237621)
-
-安裝後輸入 ```source ~/.bashrc``` ，即可在當前頁面使用 conda。
-
-```conda create -n dftd4 python=3.7``` 為維持基底環境的乾淨，故建立一個虛擬環境，名為 dftd4 ，然後使用 ```conda activate dftd4``` 活化該環境。
-
-```conda install meson -c conda-forge``` 以安裝meson 以及相依套件。
-
-```meson –v``` 以及 ```ninja --version``` 確認 ninja 和 meson 安裝完成。
 
 ### 編譯 D4
 
@@ -208,19 +212,13 @@ cd [path of dftd4] 位置如下
 
 ![圖片1](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/c484fb4d-75cb-428a-b6b7-5083e6dbd961)
 
-```FC=ifort CC=icc meson setup _build -Dfortran_link_args=-qopenmp```
-
-註： intel 2024 的 C compiler 為 icx ，Fortran compiler 為 ifx
-
-```meson test -C _build --print-errorlogs```
-
-```meson configure _build --prefix=~/pkg/vasp.6.4.1/dftd4 -Dapi_v2=true```
-
-```meson install -C _build```
-
-```export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:~/pkg/vasp.6.4.1/dftd4/lib64/pkgconfig/```
-
-加上 ```CPP_OPTIONS += -DDFTD4```
+```
+FC=ifort CC=icc meson setup _build -Dfortran_link_args=-qopenmp    # 註： intel 2024 的 C compiler 為 icx ，Fortran compiler 為 ifx
+meson test -C _build --print-errorlogs
+meson configure _build --prefix=~/pkg/vasp.6.4.1/dftd4 -Dapi_v2=true
+meson install -C _build
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:~/pkg/vasp.6.4.1/dftd4/lib64/pkgconfig/
+```
 
 ```pkg-config --cflags dftd4```
 
@@ -229,6 +227,8 @@ cd [path of dftd4] 位置如下
 ```pkg-config --libs dftd4```
 
 跑出來的結果寫在 make.include 最後面，添加在參數 LLIBS 後方。
+
+在 make.include 加上 ```CPP_OPTIONS += -DDFTD4```
 
 ![圖片3](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/f60101c0-62cc-4b4e-9a88-92825b4ec025)
 
@@ -244,7 +244,14 @@ cd [path of dftd4] 位置如下
 
 大部分與intel compiler相同，本節僅敘述不同之處。
 
-須另外從網路上取得 Openblas 、 Scalapack 和 fftw 的套件
+擁有超級使用者權限的話，直接用
+```
+zypper in -y lapack-devel    # BLAS 和 LAPACK 一起裝
+zypper in -y fftw3-devel
+zypper in -y openblas-devel
+```
+
+Scalapack 用 ```zypper se scalapack``` 找，一般選用 openmpi 。
 
 補充：
 
@@ -258,37 +265,46 @@ ScaLAPACK：以並行計算求解LAPACK面對的問題
 
 FFTW：快速求解快速傅立葉變換 (Fast Fourier Transformation, FFT) —— 以矩陣求解傅立葉變換，以速度犧牲精度 —— 用於處理週期性結構
 
+沒有超級使用者的權限，須從網路上取得 Openblas 、 Scalapack 和 fftw 的套件。
+
 從網路上抓檔案用 wget [URL]
 
 取得 URL 的方式：
 
 ### Openblas
 
+網址：[https://www.openblas.net/](https://www.openblas.net/)
+
 ![image](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/1a81109f-ae0c-48d8-a77c-736b79f7a0a7)
 
 cd [path of openblas]
 
-```make –j8```
-
+```make –j8
 make PREFIX=…… install
+```
 
 ### FFTW
 
+網址：[https://www.fftw.org/download.html](https://www.fftw.org/download.html)
+
 ![image](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/aef15e62-6c34-48ee-b105-1b4cf3915bfd)
 
-./configure --prefix=……
-
-```make && make install```
+```./configure --prefix=……
+make && make install
+```
 
 ### ScaLAPACK
+
+網址：[https://www.netlib.org/scalapack/](https://www.netlib.org/scalapack/)
 
 ![image](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/917f0228-bf73-4aac-864c-ff1defc4ea8c)
 
 cd [path of scalapack]
 
-```mv SLmake.inc.example SLmake.inc```
-
-```make```
+```
+mv SLmake.inc.example SLmake.inc
+make
+```
 
 ### Solvation Script
 
@@ -315,6 +331,26 @@ gcc 在 AMD 機器計算較慢，建議使用 AMD 發布的編譯器： AOCC ，
 用 find 取得 libblis.so 、 libflame.so 、 libscalapack.so 和 libfftw3.so 的路徑，分別寫入 AMDBLIS_ROOT 、 AMDLIBFLAME_ROOT 、 AMDSCALAPACK_ROOT 、 AMDFFTW_ROOT (修改這些參數時不能有 lib_LP64 )，下一行的 lib 要改成 lib_LP64 ， fftw 的 include 要改成 include_LP64 。
 
 註： lib_LP64 和 include_LP64 分別為資料夾名稱，代表上述資料夾的位置。
+
+## GPU 版本
+
+選用 nvhpc_acc 版本，有 acc 代表有使用到 CUDA ，也就是 GPU 計算引擎；沒有 acc 只是用 NVIDIA 的編譯器 (Nvidia HPC SDK)編譯，即使計算節點有 GPU 也不會使用。
+
+確認所使用 CUDA 版本，輸入 ```nvidia-smi``` 即可得知，下圖的版本為 12.4。
+
+<img width="551" alt="擷取" src="https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/3502819b-861f-4f69-b616-dc4f9e10352b">
+
+然後確認 Nvidia HPC SDK 的版本，會在 ```/opt/nvdia/hpc_sdk/Linux_x86_64``` 中，下圖版本為 24.5。
+
+<img width="319" alt="擷取3" src="https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/19f42d56-6dee-4799-aa54-cfe53091bc58">
+
+將 makefile.include 改成當前版本，下圖右邊的是原始版本，左邊是修改版
+
+<img width="770" alt="擷取1" src="https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/5552c7d8-3f49-4854-b732-8ac7ee903acf">
+
+修改 fftw3 的路徑，有超級使用者權限可用 ```zypper in -y fftw3-devel``` 取得，否則按前文從原碼自行編譯。
+
+
 
 # Conquest
 
