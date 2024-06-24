@@ -1,5 +1,7 @@
 # 編譯新 VASP
 
+本篇僅講 VASP 641 ，之前的版本見 [github](https://github.com/HongScarlet/homework/blob/master/SUSE15%20cluster/15.%20SLES%2015%20Cluster%20New.md#vasp)
+
 ## VASP
 網址：[https://www.vasp.at/sign_in/](https://www.vasp.at/sign_in/)
 
@@ -135,13 +137,9 @@ meson install -C _build
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:~/pkg/vasp.6.4.1/dftd4/lib64/pkgconfig/
 ```
 
-```pkg-config --cflags dftd4```
+```pkg-config --cflags dftd4     # 跑出來的結果寫在 make.include 最後面，添加在參數 INCS 後方。```
 
-跑出來的結果寫在 make.include 最後面，添加在參數 INCS 後方。
-
-```pkg-config --libs dftd4```
-
-跑出來的結果寫在 make.include 最後面，添加在參數 LLIBS 後方。
+```pkg-config --libs dftd4       # 跑出來的結果寫在 make.include 最後面，添加在參數 LLIBS 後方。```
 
 在 make.include 加上 ```CPP_OPTIONS += -DDFTD4```
 
@@ -263,6 +261,10 @@ gcc 在 AMD 機器計算較慢，建議使用 AMD 發布的編譯器： AOCC ，
 
 ![擷取1](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/5552c7d8-3f49-4854-b732-8ac7ee903acf")
 
-修改 fftw3 的路徑，有超級使用者權限可用 ```zypper in -y fftw3-devel``` 取得，否則按前文從源碼自行編譯。
+修改 fftw3 的路徑，有超級使用者權限可用 ```zypper in -y fftw3-devel``` 取得，否則按 gcc 小節的說明，前文從源碼自行編譯。
 
 ![擷取2](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/c3121227-786f-430d-916f-8861d556ad48)
+
+在 VASP 611 需要 source intel compiler 和 Nvidia HPC SDK (Nvidia 的 compiler)兩種編譯器，而 VASP 641 只要後者就好：
+
+```source /opt/nvidia/hpc.sh```
