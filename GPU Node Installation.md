@@ -1,4 +1,4 @@
-由於 HPC SDK 和 CUDA 版本必須互相搭配，所以先確定所使用的 HPC SDK 版本所搭配的 CUDA 的版本再安裝 CUDA。
+由於 HPC SDK 和 CUDA 版本必須互相搭配，所以先確定所使用的 HPC SDK 版本所搭配的 CUDA 的版本。
 
 Nvidia HPC SDK 網址：[https://developer.nvidia.com/nvidia-hpc-sdk-releases](https://developer.nvidia.com/nvidia-hpc-sdk-releases)
 
@@ -17,7 +17,7 @@ CUDA 網址：[https://developer.nvidia.com/cuda-toolkit-archive](https://develo
 
 註：
 1. 在臺灣時間的白天抓檔案會比較快 (約十幾分鐘)，晚上以後 (也就是美國白天)會相當慢 (慢則一小時以上)。
-2. 由於計算節點沒有連網際網路，所以建議取得壓縮檔 ( tar file ) 解壓縮而非選擇 zypper。
+2. 由於計算節點沒有連網際網路，所以要取得壓縮檔 ( tar file ) 解壓縮而非選擇 zypper。
 
 # CUDA
 
@@ -25,7 +25,7 @@ CUDA 網址：[https://developer.nvidia.com/cuda-toolkit-archive](https://develo
 
 ![擷取1](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/15a0ca28-67c7-4a6b-92a5-fb83ce38e1e6)
 
-用 wget 和 rpm 後，使用 ```zypper se cuda``` 會出現下圖，選擇「cuda」下面的選項安裝 (以下圖為例，即 cuda-12-4 )。
+用 wget 和 rpm 後，使用 ```zypper se cuda``` 會出現下圖，選擇 "cuda" 下面的選項安裝 (以下圖為例，即 "cuda-12-4" )。
 
 ![擷取3](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/46bc3ec9-fc77-4961-ab77-8b39a6cd7958)
 
