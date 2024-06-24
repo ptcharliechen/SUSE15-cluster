@@ -6,8 +6,6 @@ CUDA 網址：[https://developer.nvidia.com/cuda-toolkit-archive](https://develo
 
 # Nvidia HPC SDK
 
-**注意： CUDA 安裝之後發現弄錯要去掉很難去乾淨，甚至重灌比較快。**
-
 下圖為 SDK 24.5 的安裝檔，紅框表示使用的 CUDA 為 12.4。
 
 ![擷取](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/b3cfce54-857a-4d0b-b4c1-31379a20be83)
@@ -22,6 +20,8 @@ CUDA 網址：[https://developer.nvidia.com/cuda-toolkit-archive](https://develo
 2. 由於計算節點沒有連網際網路，所以要取得壓縮檔 ( tar file ) 解壓縮而非選擇 zypper。
 
 # CUDA
+
+**注意： CUDA 安裝之後發現弄錯要去掉很難去乾淨，甚至重灌比較快。**
 
 按下圖選擇按鈕，安裝方式選擇 rpm 。
 
