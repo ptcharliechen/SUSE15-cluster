@@ -17,7 +17,7 @@ CUDA 網址：[https://developer.nvidia.com/cuda-toolkit-archive](https://develo
 
 註：
 1. 在臺灣時間的白天抓檔案會比較快 (約十幾分鐘)，晚上以後 (也就是美國白天)會相當慢 (慢則一小時以上)。
-2. 由於計算節點沒有連網際網路，所以建議取得壓縮檔 ( tar file ) 解壓縮而非選擇 zypper
+2. 由於計算節點沒有連網際網路，所以建議取得壓縮檔 ( tar file ) 解壓縮而非選擇 zypper。
 
 # CUDA
 
