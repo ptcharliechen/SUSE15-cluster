@@ -54,7 +54,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NVCOMPILERS/$NVARCH/$HPCSDK/compilers/e
 ```
 HPCSDK 和 CUDA 的參數隨版本更動。
 
-# OS 版本
+# GID 校正
 
 15SP5 (計算節點) video (GPU 的 group) 的 GID 是 483，而 15SP2 (伺服器)是 485，導致不在同一個 group 而無法使用 GPU 計算，因此在計算節點採取 crontab 修改 video 的 GID。
 ```crontab -e```
