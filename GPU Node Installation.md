@@ -1,3 +1,5 @@
+與 CPU 相同的部分參考手冊或 [github](https://github.com/HongScarlet/homework/blob/master/SUSE15%20cluster/15.%20SLES%2015%20Cluster%20New.md#nvidia) ，只講 GPU 的部分。
+
 由於 HPC SDK 和 CUDA 版本必須互相搭配，所以先確定所使用的 HPC SDK 版本所搭配的 CUDA 的版本。
 
 Nvidia HPC SDK 網址：[https://developer.nvidia.com/nvidia-hpc-sdk-releases](https://developer.nvidia.com/nvidia-hpc-sdk-releases)
