@@ -25,7 +25,8 @@ gunzip vdw_kernel.bindat.gz
 
 ![圖片10](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/7334086f-234e-402d-b8c5-694a5bc536c1)
 
-```tar -zxvf vtstcode-197.tgz       # 解壓縮。```
+```tar -zxvf vtstcode-197.tgz```
+解壓縮。
 
 > [!WARNING]
 > 修改方式可能有所更改，請見：
@@ -86,13 +87,14 @@ LIB= lib parser pyamff_fortran
 
 ![圖片11](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/f313bf8d-a6a2-4fb0-b613-bd9c12013424)
 
-```unzip VASPsol-master.zip       # 解壓縮。```
+```unzip VASPsol-master.zip```
+解壓縮。
 
 將其中的 *solvation.F* 貼到 *src* 資料夾裡，覆蓋原本檔案。
 下指令```patch -p0 < …/VASPsol-master/src/patches/pbz_patch_610```
 - patch 會去修改 src 裡的部分檔案，因此是在VASP的 src 裡運作，並引入 (“<“ 是標準輸入)patch的檔案。
 - 一般使用者進入的IP沒有 patch，故在超級使用者進入的IP下指令。
-在 *make.include* 檔內的 CPP_OPTIONS 加上 **-Dsol_compat**
+在 *make.include* 檔內的 **CPP_OPTIONS** 加上 **-Dsol_compat**
 
 如下：
 
@@ -108,7 +110,8 @@ LIB= lib parser pyamff_fortran
 
 安裝影片：[https://www.bilibili.com/video/BV1nP4y1g7N2/](https://www.bilibili.com/video/BV1nP4y1g7N2/)
 
-筆者撰寫時只支援 intel C compiler 和 gcc ，所以 AOCC ( AMD 的編譯器，在 AMD 的機器運算效率常比使用 intel 編譯器高) 和 CUDA ( GPU ) 都不支援。
+> [!CAUTION]
+> 筆者撰寫時只支援 intel C compiler 和 gcc ，所以 AOCC ( AMD 的編譯器，在 AMD 的機器運算效率常比使用 intel 編譯器高) 和 CUDA ( GPU ) 都不支援。
 
 國網中心的主機就有 anaconda ，可以使用 module load anaconda version ；研究室的機器直接用 ```conda init``` ，就會將環境寫入 *.bashrc* 裡。
 
@@ -124,8 +127,8 @@ conda install meson -c conda-forge                                        # 安�
 meson –v
 ninja --version                                                           # 確認 ninja 和 meson 安裝完成。
 ```
-
-```sh Anaconda3-5.3.0-Linux-x86_64.sh``` 該步驟詳細過程見 [https://ithelp.ithome.com.tw/articles/10237621](https://ithelp.ithome.com.tw/articles/10237621)
+> [!NOTE]
+> ```sh Anaconda3-5.3.0-Linux-x86_64.sh``` 該步驟詳細過程見 [https://ithelp.ithome.com.tw/articles/10237621](https://ithelp.ithome.com.tw/articles/10237621)
 
 ### 編譯 D4
 
@@ -153,7 +156,7 @@ export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:[expected dftd4 path]/lib64/pkgconfig/
 
 ```pkg-config --libs dftd4       # 跑出來的結果寫在 make.include 最後面，添加在參數 LLIBS 後方。```
 
-在 *make.include* 加上 ```CPP_OPTIONS += -DDFTD4```
+在 *make.include* 加上 **CPP_OPTIONS += -DDFTD4**
 
 ![圖片3](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/f60101c0-62cc-4b4e-9a88-92825b4ec025)
 
@@ -252,7 +255,7 @@ gcc 在 AMD 機器計算較慢，建議使用 AMD 發布的編譯器： AOCC ，
 
 用 find 取得 *libblis.so* 、 *libflame.so* 、 *libscalapack.so* 和 *libfftw3.so* 的路徑，分別寫入 **AMDBLIS_ROOT** 、 **AMDLIBFLAME_ROOT** 、 **AMDSCALAPACK_ROOT** 、 **AMDFFTW_ROOT** (修改這些參數時不能有 **lib_LP64** )，下一行的 **lib** 要改成 **lib_LP64** ， fftw 的 **include** 要改成 **include_LP64** 。
 
-註： **lib_LP64** 和 **include_LP64** 分別為資料夾名稱，代表上述資料夾的位置。
+![擷取](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/61752ae8-99c5-452a-bfab-5f009a58b494)
 
 ## GPU 版本
 
