@@ -259,6 +259,8 @@ make
 > - OpenMP 以共享主記憶體並行執行緒 (thread)，MPI 每個執行緒間記憶體不共享。
 > 
 > - 執行 DFT-D4 計算時， OpenMP 的效率明顯高於 MPI。
+> 
+> - Intel Compiler 的 OpenMP 標籤是 -qopenmp，其他的是 -fopenmp。
 
 ## aocc 版本
 
