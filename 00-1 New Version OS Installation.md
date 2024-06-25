@@ -12,6 +12,8 @@ Server 代表是在伺服器操作；Client 代表在計算節點操作。
 > [!NOTE]
 > 安裝時設定好網路，即可不用待在吵雜的機房裡操作。
 
+# SSH
+
 ```
 Server :~ # ssh-copy-id root@Client
 Server :~ # vim /etc/hosts.sh
@@ -19,12 +21,25 @@ Server :~ # vim /etc/hosts.sh
 **scp /etc/hosts root@Client:/etc/hosts**
 ```
 Server :~ # /etc/hosts.sh
+```
+
+# NIS、NFS 和 防火牆
+
+```
 Client :~ # zypper in -y yast2-nis-client yast2-nfs-client
 ```
 
 防火牆、NIS 和 NFS 見手冊。
 > [!NOTE]
 > ypbind 可以不用 zypper 不安裝，進入 yast 的 NIS Client 會自動安裝。
+
+```
+Client :~ # getent passwd
+Client :~ # ll /whome
+```
+
+# 基礎套件安裝
+
 ```
 Client :~ # /work1/pkg/pkg.sh
 Client :~ # zypper in -y kernel-devel lapack-devel fftw-devel openblas-devel
@@ -37,6 +52,8 @@ Client :~ # zypper se scalapack
 
 找到合適的 ScaLAPACK 版本灌入，通常選用 OpenMPI 版。
 
+# Chrony
+
 ```
 Client :~ # vim /etc/chrony.config
 ```
@@ -48,6 +65,8 @@ Client :~ # chronyc sources
 Client :~ # chronyc burst 4/4
 Client :~ # chronyc makestep
 ```
+
+# munge 和 slurm-node
 
 ```
 Client :~ # /work1/pkg/pkg_sp2.sh
@@ -128,3 +147,7 @@ Client :~ # chown -R slurm:slurm /var/log/slurm
 Client :~ # systemctl enable slurmd --now
 Server :~ # systemctl restart slurmctld
 ```
+
+# GPU
+
+見 [00-2 GPU Node Installation.md](https://github.com/ptcharliechen/SUSE15-cluster/blob/main/00-2%20GPU%20Node%20Installation.md)
