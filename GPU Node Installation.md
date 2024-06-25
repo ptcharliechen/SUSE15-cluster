@@ -1,6 +1,7 @@
 與 CPU 相同的部分參考手冊或 [github](https://github.com/HongScarlet/homework/blob/master/SUSE15%20cluster/15.%20SLES%2015%20Cluster%20New.md) ，只講 GPU 的部分。
 
-由於 HPC SDK 和 CUDA 版本必須互相搭配，所以先確定所使用的 HPC SDK 版本所搭配的 CUDA 的版本。
+> [!CAUTION]
+> 由於 HPC SDK 和 CUDA 版本必須互相搭配，所以先確定所使用的 HPC SDK 版本所搭配的 CUDA 的版本。
 
 Nvidia HPC SDK 網址：[https://developer.nvidia.com/nvidia-hpc-sdk-releases](https://developer.nvidia.com/nvidia-hpc-sdk-releases)
 
@@ -23,7 +24,8 @@ CUDA 網址：[https://developer.nvidia.com/cuda-toolkit-archive](https://develo
 
 # CUDA
 
-**注意： CUDA 安裝之後發現弄錯要去掉很難去乾淨，甚至重灌比較快。**
+> [!CAUTION]
+> 注意： CUDA 安裝之後發現弄錯要去掉很難去乾淨，甚至重灌比較快。
 
 按下圖選擇按鈕，安裝方式選擇 rpm 。
 
@@ -58,7 +60,7 @@ HPCSDK 和 CUDA 的參數隨版本更動。
 
 # GID 校正
 
-15SP5 (計算節點) video (GPU 的 group) 的 GID 是 483，而 15SP2 (伺服器)是 485，導致不在同一個 group 而無法使用 GPU 計算，因此在計算節點採取 crontab 修改 video 的 GID。
+15SP5 (計算節點) video (GPU 的 group) 的 GID 是 483，而 15SP2 (伺服器)是 485，不在同一個 group 而無法使用 GPU 計算，因此在計算節點採取 crontab 修改 video 的 GID。
 
 ```crontab -e```
 ```
