@@ -6,7 +6,8 @@
 
 從網路上抓檔案 wget [URL]
 
-![未命名](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/155a9ca7-a5d2-479f-a8f1-faddf01fd25c)
+![圖片1](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/aff21b3b-85d3-460b-9007-4017386e43b0)
+
 ```tar -jxvf libxc-x.x.x.tar.bz2``` 解壓縮。
 
 ```
