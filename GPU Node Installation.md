@@ -25,7 +25,7 @@ CUDA 網址：[https://developer.nvidia.com/cuda-toolkit-archive](https://develo
 # CUDA
 
 > [!CAUTION]
-> 注意： CUDA 安裝之後發現弄錯要去掉很難去乾淨，甚至重灌比較快。
+> CUDA 安裝之後發現弄錯要去掉很難去乾淨，甚至重灌比較快。
 
 按下圖選擇按鈕，安裝方式選擇 rpm 。
 
@@ -56,11 +56,11 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NVCOMPILERS/$NVARCH/$HPCSDK/cuda/$CUDA/
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NVCOMPILERS/$NVARCH/$HPCSDK/math_libs/$CUDA/targets/x86_64-linux/lib
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NVCOMPILERS/$NVARCH/$HPCSDK/compilers/extras/qd/lib
 ```
-HPCSDK 和 CUDA 的參數隨版本更動。
+**HPCSDK** 和 **CUDA** 的參數隨版本更動。
 
 # GID 校正
 
-15SP5 (計算節點) video (GPU 的 group) 的 GID 是 483，而 15SP2 (伺服器)是 485，不在同一個 group 而無法使用 GPU 計算，因此在計算節點採取 crontab 修改 video 的 GID。
+15SP5 (計算節點) **video** (GPU 的 group) 的 GID 是 483，而 15SP2 (伺服器)是 485，不在同一個 group 而無法使用 GPU 計算，因此在計算節點採取 crontab 修改 video 的 GID。
 
 ```crontab -e```
 ```
