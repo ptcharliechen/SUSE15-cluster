@@ -233,6 +233,10 @@ mv SLmake.inc.example SLmake.inc
 make
 ```
 
+在 *makefile.include* 修改，下圖左邊是修改版，右邊的是原始版本
+
+![擷取 (2)](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/8a69acd4-97c2-437d-9633-fd9ec6112a24)
+
 ### Solvation Script
 
 由於該軟體的 patch 已多年沒有更新，截至今日 (2023/10/27)官方的 patch 已經刪除，或許近日會補上。icc 仍可以用官方的patch進行編譯，放在研究室機器 *VASPsol-master.zip* ，不過在 gcc 會報錯，筆者找了非官方的 patch ，放在 *VASPsol-master_gcc.tar.gz* 裡。
@@ -247,13 +251,22 @@ make
 
 ```FC=gfortran CC=gcc meson setup _build -Dfortran_link_args=-fopenmp -Dlapack=openblas```
 
+## OpenMP 版本
+
+選擇 *arch* 資料夾裡有 omp 後綴的檔案，改法與前面相同。
+
+> [!NOTE]
+> - OpenMP 以共享主記憶體並行執行緒 (thread)，MPI 每個執行緒間記憶體不共享。
+> 
+> - 執行 DFT-D4 計算時， OpenMP 的效率明顯高於 MPI。
+
 ## aocc 版本
 
-gcc 在 AMD 機器計算較慢，建議使用 AMD 發布的編譯器： AOCC ，以及搭配它MPI編譯器： OpenMPI 。
+gcc 在 AMD 機器計算較慢，建議使用 AMD 發布的編譯器： AOCC ，以及搭配它 MPI 編譯器： OpenMPI 。
 
 與 intel compiler 不同， AOCC 要另外去找 AOCL ( AOCC 的 MKL )，臺三用 module avail 就可以找到合適的。
 
-用 find 取得 *libblis.so* 、 *libflame.so* 、 *libscalapack.so* 和 *libfftw3.so* 的路徑，分別寫入 **AMDBLIS_ROOT** 、 **AMDLIBFLAME_ROOT** 、 **AMDSCALAPACK_ROOT** 、 **AMDFFTW_ROOT** (修改這些參數時不能有 **lib_LP64** )，下一行的 **lib** 要改成 **lib_LP64** ， fftw 的 **include** 要改成 **include_LP64** 。
+用 find 取得 *libblis.so* 、 *libflame.so* 、 *libscalapack.so* 和 *libfftw3.so* 的路徑，分別寫入 **AMDBLIS_ROOT** 、 **AMDLIBFLAME_ROOT** 、 **AMDSCALAPACK_ROOT** 、 **AMDFFTW_ROOT** (修改這些參數時不能有 **lib_LP64** )，下一行的 **lib** 要改成 **lib_LP64** ， fftw 的 **include** 要改成 **include_LP64**，下圖左邊是修改版，右邊的是原始版本。
 
 ![擷取](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/61752ae8-99c5-452a-bfab-5f009a58b494)
 
