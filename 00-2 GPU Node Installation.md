@@ -1,4 +1,4 @@
-與 CPU 相同的部分參考手冊或 [github](https://github.com/HongScarlet/homework/blob/master/SUSE15%20cluster/15.%20SLES%2015%20Cluster%20New.md)，15SP5 或更新版的解說見[此](https://github.com/ptcharliechen/SUSE15-cluster/blob/main/00-1%20New%20Version%20OS%20Installation.md)，只講 GPU 的部分。
+與 CPU 相同的部分參考網管筆記或 [github](https://github.com/HongScarlet/homework/blob/master/SUSE15%20cluster/15.%20SLES%2015%20Cluster%20New.md)，15SP5 或更新版的解說見[此](https://github.com/ptcharliechen/SUSE15-cluster/blob/main/00-1%20New%20Version%20OS%20Installation.md)，只講 GPU 的部分。
 
 > [!CAUTION]
 > 由於 HPC SDK 和 CUDA 版本必須互相搭配，所以先確定所使用的 HPC SDK 版本所搭配的 CUDA 的版本。
