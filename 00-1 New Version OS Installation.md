@@ -35,7 +35,7 @@ Client :~ # zypper in -y yast2-nis-client yast2-nfs-client
 
 ```
 Client :~ # getent passwd
-Client :~ # ll /whome
+Client :~ # ll /home
 ```
 
 # 基礎套件安裝
@@ -93,7 +93,7 @@ Server :~ # munge -n | ssh Client umunge
 > 的 key 是否相同。
 
 > [!NOTE]
-> */work1/pkg/pkg.sh* 包含 15SP2 和 15SP5 的 repository ，不過 15SP5 的優先度略高於 15SP2 ，因應日益更新的軟體需要較新的套件支援。不過涉及和伺服器溝通的 slurm 最好與其版本一致，所以使用 */work1/pkg/pkg_sp2.sh* 將 repository 改成 15SP2 以安裝 slurm-node ，之後再改回 15SP5。
+> */work1/pkg/pkg.sh* 包含 15SP2 和 15SP5 的 repository ，不過 15SP5 的優先度略高於 15SP2 ，因日益更新的軟體需要較新的套件支援。不過涉及和伺服器溝通的 slurm 最好與其版本一致， */work1/pkg/pkg_sp2.sh* 將 repository 改成 15SP2 以安裝 slurm-node ，再改回 15SP5。
 
 > [!NOTE]
 > */work1/pkg/pkg_sp5.sh* 只有 15SP5 的 repository。
