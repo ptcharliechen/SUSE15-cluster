@@ -13,10 +13,11 @@
 
 ![圖片9](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/400531e7-c126-4de0-af25-5db919a9ee53)
 
-```tar -zxvf vasp.6.4.1.tgz``` 
-```gunzip vdw_kernel.bindat.gz```
+```
+tar -zxvf vasp.6.4.1.tgz
+gunzip vdw_kernel.bindat.gz
+```
 解壓縮。
-
 
 ## NEB (vtst)
 網址：[http://theory.cm.utexas.edu/vtsttools/download.html](http://theory.cm.utexas.edu/vtsttools/download.html
@@ -24,19 +25,23 @@
 
 ![圖片10](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/7334086f-234e-402d-b8c5-694a5bc536c1)
 
-```tar -zxvf vtstcode-197.tgz``` 解壓縮。
+```tar -zxvf vtstcode-197.tgz       # 解壓縮。```
 
+> [!WARNING]
+> 修改方式可能有所更改，請見：
+> [http://theory.cm.utexas.edu/vtsttools/installation.html](http://theory.cm.utexas.edu/vtsttools/installation.html)
 
-修改方式可能有所更改，請見：
-[http://theory.cm.utexas.edu/vtsttools/installation.html](http://theory.cm.utexas.edu/vtsttools/installation.html)
+*main.F*
 
-```main.F```
-
-```IF (LCHAIN) CALL chain_init( T_INFO, IO)```
+```
+IF (LCHAIN) CALL chain_init( T_INFO, IO)
+```
 
 改成
 
-```CALL chain_init( T_INFO, IO)```
+```
+CALL chain_init( T_INFO, IO)
+```
 
 另一部分
 
@@ -50,7 +55,7 @@
  	TSIF,LATT_CUR%A,LATT_CUR%B,IO%IU6)
 ```
 
-```.objects``` (是個隱藏檔)
+*.objects* (是個隱藏檔)
 
 添加
 ```
@@ -59,7 +64,7 @@
  pyamff_fortran/*.o ml_pyamff.o \
  opt.o \
 ```
-在 chain.o 前 (每一列前面都要有 Tab)。
+在 **chain.o** 前 (每一列前面都要有 Tab)。
 
 ![圖片14](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/0c207b71-5d86-4a66-bd28-4ada45e67ebb)
 
@@ -67,9 +72,11 @@
 
 ![圖片15](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/b99bb816-9e4f-4d75-ab8e-4606f6180e6a)
 
-src 內的 makefile
+在 *src* 內的 *makefile* 添加
 
-```LIB= lib parser pyamff_fortran```
+```
+LIB= lib parser pyamff_fortran
+```
 
 ![圖片16](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/4ae12fa8-95b3-4866-99e5-2d6b52b55167)
 
@@ -79,20 +86,19 @@ src 內的 makefile
 
 ![圖片11](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/f313bf8d-a6a2-4fb0-b613-bd9c12013424)
 
-```unzip VASPsol-master.zip``` 解壓縮。
-
+```unzip VASPsol-master.zip       # 解壓縮。```
 
 將其中的 *solvation.F* 貼到 *src* 資料夾裡，覆蓋原本檔案。
 下指令```patch -p0 < …/VASPsol-master/src/patches/pbz_patch_610```
 - patch 會去修改 src 裡的部分檔案，因此是在VASP的 src 裡運作，並引入 (“<“ 是標準輸入)patch的檔案。
 - 一般使用者進入的IP沒有 patch，故在超級使用者進入的IP下指令。
-在 make.include 檔內的 CPP_OPTIONS 加上```-Dsol_compat```
+在 *make.include* 檔內的 CPP_OPTIONS 加上 **-Dsol_compat**
 
 如下：
 
 ![圖片13](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/39b1b3f7-9ae8-4cf1-999e-1352b8188b38)
 
-由於該軟體的 patch 已多年沒有更新，截至今日 (2024/5/24)官方的patch已經刪除，或許近日會補上。icc 仍可以用官方的patch進行編譯，放在 VASPsol-master.zip，不過在 gcc 會報錯，筆者找了非官方的 patch ，放在這個repository的Code裡。
+由於該軟體的 patch 已多年沒有更新，截至今日 (2024/5/24)官方的 patch 已經刪除，或許近日會補上。 icc 仍可以用官方的 patch 進行編譯，放在 *VASPsol-master.zip* ，不過在 gcc 會報錯，筆者找了非官方的 patch ，放在這個 repository 的 Code 裡。
 
 ## DFT-D4
 
@@ -104,7 +110,7 @@ src 內的 makefile
 
 筆者撰寫時只支援 intel C compiler 和 gcc ，所以 AOCC ( AMD 的編譯器，在 AMD 的機器運算效率常比使用 intel 編譯器高) 和 CUDA ( GPU ) 都不支援。
 
-國網中心的主機就有 anaconda ，可以使用 module load anaconda version ；研究室的機器直接用 ```conda init``` ，就會將環境寫入 .bashrc 裡。
+國網中心的主機就有 anaconda ，可以使用 module load anaconda version ；研究室的機器直接用 ```conda init``` ，就會將環境寫入 *.bashrc* 裡。
 
 ### 安裝 Anaconda
 
@@ -125,29 +131,35 @@ ninja --version                                                           # 確�
 
 module intel compiler & Intel MPI
 
-cd [path of dftd4] 位置如下
+> [!CAUTION]
+> 需要 cmake 3.14 或更新的版本。因此在國高要 module load cmake ，研究室機器已經更新，亦可以 zypper 更新。
+
+```cd [path of dftd4]``` 位置如下
 
 ![圖片1](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/c484fb4d-75cb-428a-b6b7-5083e6dbd961)
 
 ```
-FC=ifort CC=icc meson setup _build -Dfortran_link_args=-qopenmp    # 註： intel 2024 的 C compiler 為 icx ，Fortran compiler 為 ifx
+FC=ifort CC=icc meson setup _build -Dfortran_link_args=-qopenmp
 meson test -C _build --print-errorlogs
-meson configure _build --prefix=~/pkg/vasp.6.4.1/dftd4 -Dapi_v2=true
+meson configure _build --prefix=[expected dftd4 path] -Dapi_v2=true
 meson install -C _build
-export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:~/pkg/vasp.6.4.1/dftd4/lib64/pkgconfig/
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:[expected dftd4 path]/lib64/pkgconfig/
 ```
+
+> [!NOTE]
+> intel 2024 的 C compiler 為 icx ，Fortran compiler 為 ifx
 
 ```pkg-config --cflags dftd4     # 跑出來的結果寫在 make.include 最後面，添加在參數 INCS 後方。```
 
 ```pkg-config --libs dftd4       # 跑出來的結果寫在 make.include 最後面，添加在參數 LLIBS 後方。```
 
-在 make.include 加上 ```CPP_OPTIONS += -DDFTD4```
+在 *make.include* 加上 ```CPP_OPTIONS += -DDFTD4```
 
 ![圖片3](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/f60101c0-62cc-4b4e-9a88-92825b4ec025)
 
 將
-```export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/.../pkg/vasp.6.4.1/dftd4/lib64```
-加到 VASP 環境檔裡 (下圖的環境檔即 vasp_set.sh )
+```export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:[expected dftd4 path]/dftd4/lib64```
+加到 VASP 環境檔裡 (下圖的環境檔即 *vasp_set.sh* )
 
 ![圖片4](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/361ae1f2-14cd-4765-b6a0-96e18b3ed3de)
 
@@ -155,7 +167,7 @@ export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:~/pkg/vasp.6.4.1/dftd4/lib64/pkgconfig/
 
 ## gcc 版本
 
-大部分與intel compiler相同，本節僅敘述不同之處。
+大部分與 intel compiler 相同，本節僅敘述不同之處。
 
 擁有超級使用者權限的話，直接用
 ```
@@ -166,19 +178,18 @@ zypper in -y openblas-devel
 
 Scalapack 用 ```zypper se scalapack``` 找，一般選用 openmpi 。
 
-補充：
-
-BLAS：基礎線性代數操作的數值庫（如向量或矩陣乘法）
-
-LAPACK：解多元線性方程式、線性系統方程組的最小平方解、計算特徵向量、用於計算矩陣QR分解、以及奇異值分解等問題
-
-OpenBLAS 可理解為 BLAS 和 LAPACK 的合併版，有超級使用者權限的話，可以自行安裝，國高可請他們安裝。如果想要自編的話，只有 OpenBLAS ， LAPACK 需要用到 BLAS ，而 BLAS 的源碼過舊，現代編譯器不支援，除非找舊版的編譯器，否則無法自編。
-
-ScaLAPACK：以並行計算求解LAPACK面對的問題
-
-FFTW：快速求解快速傅立葉變換 (Fast Fourier Transformation, FFT) —— 以矩陣求解傅立葉變換，以速度犧牲精度 —— 用於處理週期性結構
-
-沒有超級使用者的權限，須從網路上取得 Openblas 、 Scalapack 和 fftw 的套件。
+> [!Note]
+> BLAS：基礎線性代數操作的數值庫（如向量或矩陣乘法）
+> 
+> LAPACK：解多元線性方程式、線性系統方程組的最小平方解、計算特徵向量、用於計算矩陣QR分解、以及奇異值分解等問題
+> 
+> OpenBLAS 可理解為 BLAS 和 LAPACK 的合併版，有超級使用者權限的話，可以自行安裝，國高可請他們安裝。如果想要自編的話，只有 OpenBLAS ， LAPACK 需要用到 BLAS ，而 BLAS 的源碼過舊，現代編譯器不支援，除非找舊版的編譯器，否則無法自編。
+> 
+> ScaLAPACK：以並行計算求解 LAPACK 面對的問題
+> 
+> FFTW：快速求解快速傅立葉變換 (Fast Fourier Transformation, FFT) —— 以矩陣求解傅立葉變換，以速度犧牲精度 —— 用於處理週期性結構
+> 
+> 沒有超級使用者的權限，須從網路上取得 Openblas 、 Scalapack 和 fftw 的套件。
 
 從網路上抓檔案用 wget [URL]
 
@@ -190,10 +201,10 @@ FFTW：快速求解快速傅立葉變換 (Fast Fourier Transformation, FFT) —�
 
 ![image](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/1a81109f-ae0c-48d8-a77c-736b79f7a0a7)
 
+```
 cd [path of openblas]
-
-```make –j8
-make PREFIX=…… install
+make –j8
+make PREFIX=[expected openblas path] install
 ```
 
 ### FFTW
@@ -202,7 +213,8 @@ make PREFIX=…… install
 
 ![image](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/aef15e62-6c34-48ee-b105-1b4cf3915bfd)
 
-```./configure --prefix=……
+```
+./configure --prefix=[expected fftw path]
 make && make install
 ```
 
@@ -212,22 +224,19 @@ make && make install
 
 ![image](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/917f0228-bf73-4aac-864c-ff1defc4ea8c)
 
-cd [path of scalapack]
-
 ```
+cd [path of scalapack]
 mv SLmake.inc.example SLmake.inc
 make
 ```
 
 ### Solvation Script
 
-由於該軟體的 patch 已多年沒有更新，截至今日 (2023/10/27)官方的patch已經刪除，或許近日會補上。icc 仍可以用官方的patch進行編譯，放在 VASPsol-master.zip，不過在 gcc 會報錯，筆者找了非官方的 patch ，放在 VASPsol-master_gcc.tar.gz 裡。
+由於該軟體的 patch 已多年沒有更新，截至今日 (2023/10/27)官方的 patch 已經刪除，或許近日會補上。icc 仍可以用官方的patch進行編譯，放在研究室機器 *VASPsol-master.zip* ，不過在 gcc 會報錯，筆者找了非官方的 patch ，放在 *VASPsol-master_gcc.tar.gz* 裡。
 
 ### DFT-D4
 
 記得用 gcc 編譯
-
-由於要求 cmake 3.14 或更新的版本，因此在國高要 module load cmake ，研究室機器已經更新。
 
 ```FC=ifort CC=icc meson setup _build -Dfortran_link_args=-qopenmp```
 
@@ -241,9 +250,9 @@ gcc 在 AMD 機器計算較慢，建議使用 AMD 發布的編譯器： AOCC ，
 
 與 intel compiler 不同， AOCC 要另外去找 AOCL ( AOCC 的 MKL )，臺三用 module avail 就可以找到合適的。
 
-用 find 取得 libblis.so 、 libflame.so 、 libscalapack.so 和 libfftw3.so 的路徑，分別寫入 AMDBLIS_ROOT 、 AMDLIBFLAME_ROOT 、 AMDSCALAPACK_ROOT 、 AMDFFTW_ROOT (修改這些參數時不能有 lib_LP64 )，下一行的 lib 要改成 lib_LP64 ， fftw 的 include 要改成 include_LP64 。
+用 find 取得 *libblis.so* 、 *libflame.so* 、 *libscalapack.so* 和 *libfftw3.so* 的路徑，分別寫入 **AMDBLIS_ROOT** 、 **AMDLIBFLAME_ROOT** 、 **AMDSCALAPACK_ROOT** 、 **AMDFFTW_ROOT** (修改這些參數時不能有 **lib_LP64** )，下一行的 **lib** 要改成 **lib_LP64** ， fftw 的 **include** 要改成 **include_LP64** 。
 
-註： lib_LP64 和 include_LP64 分別為資料夾名稱，代表上述資料夾的位置。
+註： **lib_LP64** 和 **include_LP64** 分別為資料夾名稱，代表上述資料夾的位置。
 
 ## GPU 版本
 
@@ -253,15 +262,15 @@ gcc 在 AMD 機器計算較慢，建議使用 AMD 發布的編譯器： AOCC ，
 
 ![擷取](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/3502819b-861f-4f69-b616-dc4f9e10352b)
 
-然後確認 Nvidia HPC SDK 的版本，會在 ```/opt/nvdia/hpc_sdk/Linux_x86_64``` 中，下圖版本為 24.5。
+然後確認 Nvidia HPC SDK 的版本，會在 */opt/nvdia/hpc_sdk/Linux_x86_64* 中，下圖版本為 24.5。
 
 ![擷取3"](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/19f42d56-6dee-4799-aa54-cfe53091bc58)
 
-將 makefile.include 改成當前版本，下圖左邊是修改版，右邊的是原始版本
+將 *makefile.include* 改成當前版本，下圖左邊是修改版，右邊的是原始版本
 
 ![擷取1](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/5552c7d8-3f49-4854-b732-8ac7ee903acf")
 
-修改 fftw3 的路徑，有超級使用者權限可用 ```zypper in -y fftw3-devel``` 取得，否則按 gcc 小節的說明，前文從源碼自行編譯。
+修改 fftw3 的路徑，有超級使用者權限可用 ```zypper in -y fftw3-devel``` 取得，否則按 gcc 小節的說明，從源碼自行編譯。
 
 ![擷取2](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/c3121227-786f-430d-916f-8861d556ad48)
 
