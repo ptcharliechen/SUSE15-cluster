@@ -27,6 +27,69 @@ make && make install
 
 以下是該版本的可執行檔。
 
+### MPI 版
+
+```
+# This is an example system-specific makefile. You will need to adjust
+# it for the actual system you are running on.
+
+# Set compilers
+FC=mpiifort
+
+# OpenMP flags
+# Set this to "OMPFLAGS= " if compiling without openmp
+# Set this to "OMPFLAGS= -fopenmp" if compiling with openmp
+OMPFLAGS=
+# Set this to "OMP_DUMMY = DUMMY" if compiling without openmp
+# Set this to "OMP_DUMMY = " if compiling with openmp
+OMP_DUMMY = 
+
+# Set BLAS and LAPACK libraries
+# MacOS X
+# BLAS= -lvecLibFort
+# Intel MKL use the Intel tool
+# Generic
+#BLAS= -llapack -lblas
+# Full scalapack library call; remove -lscalapack if using dummy diag module.
+# If using OpenMPI, use -lscalapack-openmpi instead.
+# If using Cray-libsci, use -llibsci_cray_mpi instead.
+#SCALAPACK = -lscalapack
+
+# LibXC: choose between LibXC compatibility below or Conquest XC library
+
+# Conquest XC library
+#XC_LIBRARY = CQ
+#XC_LIB =
+#XC_COMPFLAGS =
+
+# LibXC compatibility
+# Choose LibXC version: v4 (deprecated) or v5/6 (v5 and v6 have the same interface)
+#XC_LIBRARY = LibXC_v4
+XC_LIBRARY = LibXC_v5
+XC_LIB = -L/path/to/libxc/lib -lxcf90 -lxcf03 -lxc
+XC_COMPFLAGS = -I/path/to/libxc/include
+
+# Set FFT library
+FFT_LIB=-lfftw3
+FFT_OBJ=fft_fftw3.o
+
+LIBS= $(FFT_LIB) $(XC_LIB) $(SCALAPACK) $(BLAS)
+
+# Compilation flags
+# NB for gcc10 you need to add -fallow-argument-mismatch
+COMPFLAGS= -g -traceback -O3 -xCORE-AVX512 -fp-model strict -qopt-report $(OMPFLAGS) $(XC_COMPFLAGS)
+
+# Linking flags
+LINKFLAGS= -qmkl=parallel -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64 -static-intel -L/usr/local/lib $(OMPFLAGS)
+
+# Matrix multiplication kernel type
+MULT_KERN = default
+# Use dummy DiagModule or not
+DIAG_DUMMY =
+```
+
+### OpenMP 版
+
 ```
 # This is an example system-specific makefile. You will need to adjust
 # it for the actual system you are running on.
@@ -88,6 +151,10 @@ DIAG_DUMMY =
 
 > [!NOTE]
 > - v.1.3 才有OpenMP。
-> - OpenMPI 的 OpenMP 的標示是 *-fopenmp* ，而 Intel 版本的是 *-qopenmp*，要設定 *OMPFLAGS=-qopenmp*。
-> - *XC_LIBRARY = CQ* 是內建的 LibXC，須註解，同時打開 *XC_LIBRARY = LibXC_v5* 以及 *XC_LIB* 和 *XC_COMPFLAGS* 的註解。
-> - LibXC v.5 和 v.6 的介面相同，所以 v.5 以上的版本 *XC_LIBRARY = LibXC_v5*。
+> - MPI 版和 OpenMP 版只差在 *OMPFLAGS* 是否有參數。
+> - OpenMPI 的 OpenMP 的標示是 *-fopenmp*； Intel 版本是 *-qopenmp*。
+> - *XC_LIBRARY = CQ* 是內建的 LibXC，須註解，同時打開 *XC_LIBRARY = LibXC_v5* 以及 *XC_LIB* 和 *XC_COMPFLAGS* 的註解，並輸入所在的 library 和 include 路徑。
+> - LibXC v.5 和 v.6 的介面相同，所以 v.5 以上的版本 *XC_LIBRARY = LibXC_v5* 都適用。
+
+> [!CAUTION]
+> - OpenMP 版和 MPI 版不能互通。當使用 OpenMP 版， slurm script 的指令必須含```-np [total process number] -ppn [process number per node] -genv I_MPI_PIN_DOMAIN=omp -genv I_MPI_PIN=yes -genv OMP_NUM_THREADS=[thread number] -genv OMP_PLACES=cores -genv OMP_PROC_BIND=close -genv OMP_STACKSIZE=512m```，只有 ```-np [total process number] -ppn [process number per node]``` 會報錯。
