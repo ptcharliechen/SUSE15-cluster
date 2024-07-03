@@ -90,3 +90,4 @@ DIAG_DUMMY =
 > - v.1.3 才有OpenMP。
 > - OpenMPI 的 OpenMP 的標示是 *-fopenmp* ，而 Intel 版本的是 *-qopenmp*，要設定 *OMPFLAGS=-qopenmp*。
 > - *XC_LIBRARY = CQ* 是內建的 LibXC，須註解，同時打開 *XC_LIBRARY = LibXC_v5* 以及 *XC_LIB* 和 *XC_COMPFLAGS* 的註解。
+> - LibXC v.5 和 v.6 的介面相同，所以 v.5 以上的版本 *XC_LIBRARY = LibXC_v5*。
