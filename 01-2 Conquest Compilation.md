@@ -212,8 +212,8 @@ DIAG_DUMMY =
 ```
 
 > [!NOTE]
-> 將BLAS參數的-llapack -lblas改成-lflame –lblis
-> LIBS的 參數前面加上 AOCL 的路徑 (-L/path/to/AOCL 寫到 lib_LP64 ，這樣 *libfftw3.so* 、*libblis.so* 、 *libflame.so* 、 *libscalapack.so* 都會指到該路徑上)。
+> - 將BLAS參數的*-llapack* *-lblas*改成*-lflame* *–lblis*
+> - LIBS的 參數前面加上 AOCL 的路徑 (-L/path/to/AOCL 寫到 lib_LP64 ，這樣 *libfftw3.so* 、*libblis.so* 、 *libflame.so* 、 *libscalapack.so* 都會指到該路徑上)。
 
 ## CONQUEST v.1.3
 
