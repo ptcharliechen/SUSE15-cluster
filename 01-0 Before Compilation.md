@@ -133,10 +133,10 @@ OpenMP 用於多核心共享記憶體的計算環境，使其能夠在多核處�
 > [!NOTE]
 > OpenMPI 是 GNU 的 MPI 編譯器，而 OpenMP 是共享記憶體平行化技術。
 
+### 執行時注意事項
+
 > [!CAUTION]
 > OMP 和 MPI 的執行檔不互通，用反會報錯；反之亦然。
-
-### 執行時注意事項
 
 MPI 在 slurm script 中的寫法：
 
