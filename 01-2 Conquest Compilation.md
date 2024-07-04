@@ -190,19 +190,19 @@ LIBS= $(FFT_LIB) $(XC_LIB) -L/path/to/lib_LP64 -lscalapack $(BLAS)
 # LibXC compatibility (LibXC below) or Conquest XC library
 
 # Conquest XC library
-XC_LIBRARY = CQ
+#XC_LIBRARY = CQ
 #XC_LIB =
 #XC_COMPFLAGS =
 
 # LibXC compatibility
 # Choose LibXC version: v4 (deprecated) or v5/6 (v5 and v6 have the same interface)
 # XC_LIBRARY = LibXC_v4
-#XC_LIBRARY = LibXC_v5
-#XC_LIB = -lxcf90 -lxc
-#XC_COMPFLAGS = -I/usr/local/include
+ XC_LIBRARY = LibXC_v5
+ XC_LIB = -L/path/to/libxc/lib -lxcf90 -lxcf03 -lxc
+ XC_COMPFLAGS = -I/path/to/libxc/include
 
 # Set FFT library
-FFT_LIB=-L/opt/ohpc/Taiwania3/pkg/aocl/gcc/4.0/lib_LP64 -lfftw3
+FFT_LIB=-L/path/to/lib_LP64 -lfftw3
 FFT_OBJ=fft_fftw3.o
 
 # Matrix multiplication kernel type
