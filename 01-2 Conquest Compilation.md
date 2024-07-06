@@ -303,8 +303,8 @@ cp ./src/system.make ./tools/BasisGeneration
 cd ./tools/BasisGeneration
 make
 ```
-
-如果有 PMI 相關錯誤的話，輸入 ```unset I_MPI_PMI_LIBRARY```
+> [!WARNING]
+> 如果有 PMI 相關錯誤的話，輸入 ```unset I_MPI_PMI_LIBRARY```
 
 進入 pseudo-and-pao 其中的 PBE 的 test_default_PAOs.sh
 
@@ -316,8 +316,8 @@ make
 
 然後輸入 ./test_default_PAOs.sh 以生成 .ion 檔。
 
-> [!NOTE]
-> LDA 和 PBEsol 有問題。
+> [!WARNING]
+> LDA 和 PBEsol 會報錯。
 
 ### pseudopotential 精度修改
 
@@ -335,3 +335,10 @@ large (triple zeta, triple polarisation, TZTP)。
 下圖是將precision從 medium 改成 large 的例子。
 
 ![圖片5](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/cb49c388-09f9-4504-a07a-7c6188420c99)
+
+### csub
+
+現行的 csub 可以在第二個參數選 pseudopotential 的精度：
+```csub [job name] [precision]```。
+
+有 *low* 、 *medium* 、 *high* 三種 precision，抓取方式寫在 **cpreprocess.py** 裡。 **cpreprocess.py** 內部的判斷邏輯寫在 此。
