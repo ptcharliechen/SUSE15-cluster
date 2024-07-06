@@ -46,6 +46,8 @@ make -j32
 
 ### mpif90
 
+本節不用 Intel MKL，Intel 編譯器仍可使用。
+
 ```
 # Set compilers
 FC=mpif90
@@ -97,8 +99,9 @@ DIAG_DUMMY =
 > [!NOTE]
 > - *XC_LIBRARY = CQ* 是內建的 LibXC，須註解，同時打開 *XC_LIBRARY = LibXC_v5* 以及 *XC_LIB* 和 *XC_COMPFLAGS* 的註解，並輸入所在的 library 和 include 路徑。
 > - LibXC v.5 和 v.6 的介面相同，所以 v.5 以上的版本 *XC_LIBRARY = LibXC_v5* 都適用。
-> - 請確認是否有 *libblas.so*、*liblapack.so* 和 *libfftw3.so*，詳見 [gcc版本](https://github.com/ptcharliechen/SUSE15-cluster/blob/main/01-1%20VASP%20Compilation.md#gcc-%E7%89%88%E6%9C%AC)。
-> - 若是使用 gcc10 或更新的編譯器，將
+> - 請確認 */usr/lib64* 是否有 *libblas.so*、*liblapack.so* 和 *libfftw3.so*，詳見 [gcc版本](https://github.com/ptcharliechen/SUSE15-cluster/blob/main/01-1%20VASP%20Compilation.md#gcc-%E7%89%88%E6%9C%AC)。
+> - libscalapack.so 須自編，詳見 [gcc版本](https://github.com/ptcharliechen/SUSE15-cluster/blob/main/01-1%20VASP%20Compilation.md#gcc-%E7%89%88%E6%9C%AC)。
+> - 若是使用 gcc10 或更新的 gcc 編譯器，將
 >   
 > *COMPFLAGS= -O3 $(XC_COMPFLAGS)*
 >
@@ -212,15 +215,20 @@ DIAG_DUMMY =
 ```
 
 > [!NOTE]
-> - 將BLAS參數的 *-llapack* *-lblas*改成 *-lflame* *–lblis*
+> - 將BLAS參數的 *-llapack* *-lblas* 改成 *-lflame* *–lblis*。
+> - LibXC 用 AOCC/AOCL 編譯為佳，生成 makeFile 檔的步驟只要修改右列 ```./configure --prefix==[expected libxc path] FC=flang CC=clang```。
 > - LIBS的 參數前面加上 AOCL 的路徑 (-L/path/to/AOCL 寫到 lib_LP64 ，這樣 *libfftw3.so* 、*libblis.so* 、 *libflame.so* 、 *libscalapack.so* 都會指到該路徑上)。
 
 ## CONQUEST v.1.3
 
+在此只示範 Intel MKL 版。以下是要修改的地方：
+
 *FC=mpiifort*
+
 *F77=mpiifort*
 
 *LINKFLAGS=-qmkl=parallel -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64 -static-intel*
+
 *COMPFLAGS= -g -traceback -O3 -xCORE-AVX512 -fp-model strict -qopt-report $(XC_COMPFLAGS)*
 
 
@@ -289,3 +297,43 @@ DIAG_DUMMY =
 > - v.1.3 才有 OpenMP。
 > - MPI 版把 *OMPFLAGS* 的參數刪掉。
 > - 其他見 [編譯時注意事項](https://github.com/ptcharliechen/SUSE15-cluster/blob/main/01-0%20Before%20Compilation.md#%E7%B7%A8%E8%AD%AF%E6%99%82%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85) 和 [執行時注意事項](https://github.com/ptcharliechen/SUSE15-cluster/blob/main/01-0%20Before%20Compilation.md#%E5%9F%B7%E8%A1%8C%E6%99%82%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85)。
+
+## 編譯 pseudopotential
+
+```
+cp ./src/system.make ./tools/BasisGeneration
+cd ./tools/BasisGeneration
+make
+```
+
+如果有PMI相關錯誤的話，輸入 ```unset I_MPI_PMI_LIBRARY```
+
+進入 pseudo-and-pao 其中的 PBE 的 test_default_PAOs.sh
+
+加入 *cp "$ele"CQ.ion "$ele".ion* ，有需要的話可添補， *echo ""$ele" is completed."* 追蹤進度。
+
+![圖片2](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/1a574e59-0497-4886-9849-4baf130930b0)
+
+![圖片3](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/debf2974-ce4a-47a6-ad9c-c00b9cb76fb0)
+
+然後輸入 ./test_default_PAOs.sh 以生成 .ion 檔。
+
+> [!NOTE]
+> LDA 和 PBEsol 有問題。
+
+### pseudopotential 精度修改
+
+Conquest 的基組 (basis sets)有右列精度：
+minimal (single zeta, SZ)、
+small (single zeta and polarisation, SZP)、
+medium (double zeta, single polarisation, DZP)、
+large (triple zeta, triple polarisation, TZTP)。
+
+預設是 medium。
+在 PBE 的資料夾下輸入
+```sed –i 's/medium/[precision]/g' */Conquest_ion_input```
+即可將 medium 改成指定精度，剩下與上一節相同。
+
+下圖是將precision從 medium 改成 large 的例子。
+
+![圖片5](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/cb49c388-09f9-4504-a07a-7c6188420c99)
