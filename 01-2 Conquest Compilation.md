@@ -1,5 +1,3 @@
-# 編譯新 Conquest
-
 ## LibXC
 
 Conquest 的強大在於大規模平行運算，以線性組合簡化原子間關係，稱 MSSF (Multi-site support functions)，而內建的 LibXC 無法在 MSSF 使用，需要自編 LibXC。
@@ -306,7 +304,7 @@ cd ./tools/BasisGeneration
 make
 ```
 
-如果有PMI相關錯誤的話，輸入 ```unset I_MPI_PMI_LIBRARY```
+如果有 PMI 相關錯誤的話，輸入 ```unset I_MPI_PMI_LIBRARY```
 
 進入 pseudo-and-pao 其中的 PBE 的 test_default_PAOs.sh
 
