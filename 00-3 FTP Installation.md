@@ -2,8 +2,9 @@
 
 硬碟的格式通常是 NTFS-3g，SLES 並沒有配備。
 
+下載點：https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2022.10.3.tgz
+
 ```
-wget https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2022.10.3.tgz
 tar -zxvf ntfs-3g_ntfsprogs-2022.10.3.tgz
 cd ntfs-3g_ntfsprogs-2022.10.3/
 ./configure
@@ -14,7 +15,7 @@ make && make install
 
 ## 取得舊機器的帳號密碼
 
-由於難以考證前人的密碼，嘗試破解也不易，整個搬過來為佳。不過，由於新舊作業系統的 **/etc/group**、**/etc/passwd** 和 **/etc/shadow** 的內容不一樣，完全覆蓋並不妥，因此只把需要的部分貼過來就好。
+由於難以考證前人的密碼，嘗試破解也不易，整個搬過來為佳。不過，由於新舊作業系統的 **/etc/group**、**/etc/passwd** 和 **/etc/shadow** 的內容不一樣，完全覆蓋並不妥，以下圖為例， video 的 GID 就不一樣；因此，把需要的部分貼過來就好。
 
 下圖即是 **/etc/passwd** 部分內容，只複製 video，其他維持原樣。
 
