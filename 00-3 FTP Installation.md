@@ -30,6 +30,8 @@ make && make install
 
 進入 **/etc/ssh/sshd_config** ，將 *PermitRootLogin* 改成 no，這樣就不能直接從外部登入 root，而必須以有權限的使用者登入。
 
+## 禁止低權限使用者使用 sudo 和 su
+
 ```
 groupadd admin
 usermod -aG admin [user]
@@ -39,8 +41,6 @@ usermod -aG admin [user]
 
 > [!NOTE]
 > 建立一個群組 admin，該群組內的人可以擁有 ```sudo``` 和 ```su``` 的權限。
-
-禁止使用 sudo
 
 ```visudo```
 
