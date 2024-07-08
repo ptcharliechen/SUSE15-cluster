@@ -27,7 +27,7 @@ make && make install
 
 由於難以考證前人的密碼，嘗試破解也不易，整個搬過來為佳。不過，由於新舊作業系統的 **/etc/group**、**/etc/passwd** 和 **/etc/shadow** 的內容不一樣，完全覆蓋並不妥，以下圖為例， video 的 GID 就不一樣；因此，把需要的部分貼過來就好。
 
-下圖即是 **/etc/passwd** 部分內容，只複製 video，其他維持原樣。
+下圖即是 **/etc/passwd** 部分內容，只複製 video 的成員，其他維持原樣。
 
 ![擷取](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/8625c060-35f1-470f-9935-618c20d9fee5)
 
