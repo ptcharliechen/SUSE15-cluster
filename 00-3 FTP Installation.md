@@ -1,3 +1,11 @@
+## 架構
+
+sda
+├─sdb1  128MB  /boot/efi
+├─sdb2   32GB  /
+├─swap   32GB  [SWAP]
+└─ftp   other  /var/ftp
+
 ## NTFS-3g
 
 硬碟的格式通常是 NTFS-3g，SLES 並沒有配備。
