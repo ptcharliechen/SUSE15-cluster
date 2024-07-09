@@ -1,4 +1,6 @@
 ```
+git clone https://github.com/lammps/lammps
+cd lammps/src
 make yes-most
 make mpi -j32
 ```
