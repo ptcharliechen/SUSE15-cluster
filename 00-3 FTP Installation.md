@@ -50,7 +50,7 @@ hwclock --hctosys
 
 下圖即是 **/etc/passwd** 部分內容，只複製 video 的成員，其他維持原樣。
 
-![擷取](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/8625c060-35f1-470f-9935-618c20d9fee5)
+![擷取2](https://github.com/user-attachments/assets/01d13e4e-fe76-4c82-bbd0-f6a7372e293e)
 
 **/etc/passwd** 其他部分、 **/etc/group** 和 **/etc/shadow** 比照辦理。
 
