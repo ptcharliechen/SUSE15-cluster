@@ -23,6 +23,27 @@ make && make install
 
 就可以用 NTFS-3g 掛載硬碟 ```mount -t ntfs-3g /dev/sd** /mnt```。
 
+## 設定時間
+
+```
+vim /etc/chrony.conf
+```
+
+*server  [server]*
+
+網管登入的 IP ，涉及隱私不明寫。
+
+```
+systemctl enable chronyd.service --now
+chronyc makestep
+```
+
+設定 BIOS 的時間與系統時間同步。
+
+```
+hwclock --hctosys
+```
+
 ## 取得舊機器的帳號密碼
 
 由於難以考證前人的密碼，嘗試破解也不易，整個搬過來為佳。不過，由於新舊作業系統的 **/etc/group**、**/etc/passwd** 和 **/etc/shadow** 的內容不一樣，完全覆蓋並不妥，以下圖為例， video 的 GID 就不一樣；因此，把需要的部分貼過來就好。
