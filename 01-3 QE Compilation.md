@@ -37,6 +37,10 @@ git clone https://github.com/dalcorso/pslibrary
 
 QE_path 當中的 PWDIR 修改成 QE 的根路徑。
 
+```
+. ./make_all_ps
+```
+
 > [!NOTE]
 > make_all_ps 會讀取 QE 當中的 bin/ld1.x ，是故要設定 PWDIR 成 QE 的路徑。make_all_ps 會補 bin/ ，所以寫到根目錄。
 
