@@ -29,6 +29,10 @@ make all
 
 Pslibrary 會自動生成 QE 所須的 pseudopotential 檔案。
 
+```
+git clone https://github.com/dalcorso/pslibrary
+```
+
 使用 intel 編譯器編譯。如果 module load 會報錯，直接 source intel 編譯器之 compiler、mpi、mkl 的 env/vars.sh 。
 
 QE_path 當中的 PWDIR 修改成 QE 的根路徑。
