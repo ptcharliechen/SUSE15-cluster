@@ -1,4 +1,6 @@
-# 編譯 Python
+# Python Script
+
+## 編譯 Python
 
 作業系統都會附 python，用 ```which python``` (Python 2) 和 ```which python3``` (Python 3)就可以確認直譯器的位置。
 目前僅 vfreq.py 仍使用 Python 2，不過新的作業系統沒有，若國高的 module 沒有支援，就到 Python 官網下載源碼自編。
@@ -20,7 +22,7 @@ make -j16 && make install
 
 ```export``` 連結新編 python，再用 ```which``` 確認是否可以使用。
 
-# Python 環境
+## Python 環境
 
 Python 3 有許多強大的套件，如： NumPy、Pandas、Matplotlib、SciPy，預設的 Python 3 並沒有支援；另外，研究室自編的 script 有用 Cython 加速運算，因此必須引入相關套件才能運轉。
 創造新的環境通常不會用 root 權限在原始的 python 直譯器引入所須的套件 (國高也沒提供如此權限)，通常會建立一個虛擬環境 (venv)後引入。
@@ -47,7 +49,7 @@ script/ 資料夾裡所有 .py 檔的第一行都有 ```#!/home/xxxx/...``` ， 
 > 把 .py 為後綴的檔案當中的 hello 改為 world：```sed -i 's/hello/world/g' *.py```
 > - -i 是編輯文檔內字串。
 > - s (substitution)是取代。
-> - g (global)是凡 hello 全改成 world，如果沒有 g 的話，只換第一個 hellp。
+> - g (global)是凡 hello 全改成 world，如果沒有 g 的話，只換第一個 hello。
 > - \* 是任意字元出現 0 次或以上。也就是只要 .py 作後綴的文檔就改，包含檔名就叫 .py 的檔案。
 > 
 > 若要把 /home/user/python/bin/python3 改成 /home/user1/python/bin/python3，不是```sed -i 's//home/user/python/bin/python3//home/user1/python/bin/python3/g' *.py```，
@@ -63,3 +65,7 @@ script/kit 裡面的 accelerate.pyx 是用來加速部分計算的 script，以 
 打開 script/kit/setup.py，更換 shebang 的 Python 3 直譯器，執行 ```python3 setup.py build_ext --inplace```。
 
 到新生成的 build 資料夾裡，用 ```ln -s``` 將 accelerate.o 和 accelerate.xxxx.so 連結到 script/kit。
+
+> [!NOTE]
+>
+> setup.py 所適用的 Cython 的版本為 3.0.9，可能會因 Cython 的版本變動而有所修改。
