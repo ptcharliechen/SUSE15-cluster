@@ -33,7 +33,13 @@ Pslibrary 會自動生成 QE 所須的 pseudopotential 檔案。
 git clone https://github.com/dalcorso/pslibrary
 ```
 
-使用 intel 編譯器編譯。如果 module load 會報錯，直接 source intel 編譯器之 compiler、mpi、mkl 的 env/vars.sh 。
+<img width="133" alt="擷取" src="https://github.com/user-attachments/assets/41371581-0089-4e6e-b6c6-33c750a42aac">
+
+```
+source /home/xxxxx/pkg/intel2023/intelvars.sh
+```
+
+使用 intel 編譯器編譯。如果 module load 會報錯，直接 source intel 編譯器之 compiler、mpi、mkl 的 env/vars.sh，上圖已經打包成一個 intelvars.sh。
 
 QE_path 當中的 PWDIR 修改成 QE 的根路徑。
 
