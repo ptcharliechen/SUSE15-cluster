@@ -27,15 +27,21 @@ make -j16 && make install
 Python 3 有許多強大的套件，如： NumPy、Pandas、Matplotlib、SciPy，預設的 Python 3 並沒有支援；另外，研究室自編的 script 有用 Cython 加速運算，因此必須引入相關套件才能運轉。
 創造新的環境通常不會用 root 權限在原始的 python 直譯器引入所須的套件 (國高也沒提供如此權限)，通常會建立一個虛擬環境 (venv)後引入。
 
-創建虛擬環境：
+創建虛擬環境，以名稱 public 為例：
 
 ```
-python3 -m venv [name]
+python3 -m venv public
 ```
 
-在原地建立一個名字為 [name] 的資料夾，裡面就是該虛擬環境。
+在原地建立一個名字為 public 的資料夾，裡面就是該虛擬環境。
 
-```export``` 連結新環境，再用 ```which``` 確認是否可以使用。
+```source public/bin/activate``` 活化環境，再用 ```which``` 確認是否可以使用。
+
+> [!NOTE]
+> ```
+> source deactivate
+> ```
+> 關閉該環境。
 
 引入自編 script 所須的套件。
 
