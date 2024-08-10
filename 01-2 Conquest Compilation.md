@@ -12,14 +12,14 @@ Conquest 的強大在於大規模平行運算，以線性組合簡化原子間�
 
 ```
 autoreconf -i
-./configure --prefix==[expected libxc path] FC=ifort
+./configure --prefix=/expected/libxc/path FC=ifort
 make -j32 && make install
 ```
 > [!NOTE]
 > autoreconf 為了產生 configure 檔。
 
 > [!CAUTION]
-> 使用 intel compiler 2023 和 2024 時， ```./configure --prefix==[expected libxc path]``` 的 Fortran 編譯器是 ifx，結果會報錯，因此要改成 ifort。
+> 使用 intel compiler 2023 和 2024 時， ```./configure --prefix=/expected/libxc/path``` 的 Fortran 編譯器是 ifx，結果會報錯，因此要改成 ifort。
 
 ## Conquest
 
