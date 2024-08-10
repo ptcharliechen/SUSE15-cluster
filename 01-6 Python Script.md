@@ -16,7 +16,7 @@ wget https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz
 ```
 tar -zxvf Python-2.7.18.tgz
 cd Python-2.7.18
-./configure --prefix=[destination of python path]
+./configure --prefix=/destination/of/python/path
 make -j16 && make install
 ```
 
