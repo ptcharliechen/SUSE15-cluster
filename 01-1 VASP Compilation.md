@@ -91,9 +91,19 @@ LIB= lib parser pyamff_fortran
 解壓縮。
 
 將其中的 *solvation.F* 貼到 *src* 資料夾裡，覆蓋原本檔案。
-下指令```patch -p0 < …/VASPsol-master/src/patches/pbz_patch_610```
-- patch 會去修改 src 裡的部分檔案，因此是在VASP的 src 裡運作，並引入 (“<“ 是標準輸入)patch的檔案。
-- 一般使用者進入的IP沒有 patch，故在超級使用者進入的IP下指令。
+
+進入 src/ 的資料夾裡，輸入：
+
+```
+patch -p0 < …/VASPsol-master/src/patches/pbz_patch_610
+```
+
+> [!NOTE]
+> - patch 會去修改 src 裡的部分檔案，因此是在VASP的 src 裡運作，並引入 (“<“ 是標準輸入)patch的檔案。
+> - 在 SUSE15-cluster 裡有相關的 patch 可供下載。
+
+patch 若有缺漏，請一個一個貼。
+
 在 *make.include* 檔內的 **CPP_OPTIONS** 加上 **-Dsol_compat**
 
 如下：
@@ -181,6 +191,25 @@ VASP 的晶胞優化 (ISIF = 3)允許在 9 个自由度上自由弛豫，想固�
 > 1 是弛豫，0 是固定。
 
 參考：https://blog.shishiruqi.com//2019/05/05/constr/
+
+## CP-VASP
+
+相關 Manual 在此：https://github.com/ptcharliechen/SUSE15-cluster/blob/main/CP-VASP%20Manual.pdf
+
+> [!NOTE]
+> 要先把 VASPsol 裝好後才能裝 CP-VASP。
+
+可去 SUSE15-cluster 取得 cp-vasp6.patch
+
+進入 src/ 的資料夾裡，輸入：
+
+```
+patch -p0 < …/cp-vasp6.patch
+```
+
+![image](https://github.com/user-attachments/assets/13360ea1-b5ec-41ee-ae81-46940d830860)
+
+上圖是跑出來的結果，pot.F、reader.F 和 solvation.F 都跑出 FAILED，代表沒有 patch 成功或是有其他問題，進去這三個檔案確認，把缺的程式碼一個個在對應的地方貼上。
 
 ## DFT-D4
 
