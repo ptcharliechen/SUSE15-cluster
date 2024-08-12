@@ -2,7 +2,7 @@
 
 官方編譯建議：https://manual.gromacs.org/documentation/current/install-guide/index.html
 
-須使用 cmake 3.18.4 或更新的版本。臺三和 214 的作業系統的 cmake 都比該版舊，所以建議抓取較新作業系統的 repository 或者用 module load。
+須使用 cmake 3.18.4 或更新的版本。臺三的作業系統的 cmake 都比該版舊，所以建議抓取較新作業系統的 repository 或者用 module load。
 
 > [!NOTE]
 > 更新 repository 的指令：```zypper up [package name]```
