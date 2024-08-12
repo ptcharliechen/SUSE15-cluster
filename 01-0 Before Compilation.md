@@ -40,10 +40,13 @@ pkg-config可用來檢索系統中函式庫的訊息。
 
 *configure* 預設以超級使用者 (superuser)身分編譯，編譯出來的函式庫會放在 */usr/local* 等超級使用者才能編輯的地方，因此使用臺三編譯時，要修改生成檔案的位置： ```./configure --prefix=/path/to/lib``` 即可修改生成的 *Makefile* 的參數。
 
-```CC```: C語言編譯器；```FC```: Fortran編譯器；```CXX```: C++ 編譯器
+CC: C語言編譯器；FC: Fortran編譯器；CXX: C++ 編譯器
 
 透過```CC=[C compiler]```更換使用的C語言編譯器，更換其他編譯器同理，例如：```./configure FC=ifort```。
-舊版的 intel compiler 是使用```icc```和```ifort```， 2024 intel compiler 的已經更換成```icx```和```ifx```， *configure* 必要時要更換為```FC=ifort``` (```icc```在2024 compiler已經無效，必須用```icx```)。
+舊版的 intel compiler 是使用 icc 和 ifort， 2024 intel compiler 的已經更換成 icx 和 ifx， *configure* 必要時要更換為```FC=ifort```。
+
+> [!NOTE]
+> icc 在2024 compiler已經無效，必須用 icx。
 
 ## patch
 它是用來內嵌程式碼的工具，不過版本不同時可能會不起作用，就要手動加入程式碼，故了解 *patch* 裡面的意義，能知道如何修改 *patch* 或是在哪裡手工插入程式。下面是一個 *patch* 的範例：
