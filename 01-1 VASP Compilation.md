@@ -197,7 +197,9 @@ VASP 的晶胞優化 (ISIF = 3)允許在 9 个自由度上自由弛豫，想固�
 相關 Manual 在此：https://github.com/ptcharliechen/SUSE15-cluster/blob/main/CP-VASP%20Manual.pdf
 
 > [!NOTE]
-> 要先把 VASPsol 裝好後才能裝 CP-VASP。
+> - 要先把 VASPsol 裝好後才能裝 CP-VASP。
+> - 由於製作 patch 的團隊是在 VASP 6.2.1 的環境，版本間難免會有些差距，若有缺漏，要一個個貼。
+> - patch 相關內容於：https://github.com/ptcharliechen/SUSE15-cluster/blob/main/01-0%20Before%20Compilation.md#patch
 
 可去 SUSE15-cluster 取得 cp-vasp6.patch
 
