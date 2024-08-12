@@ -45,7 +45,13 @@ Client :~ # /work1/pkg/pkg.sh
 Client :~ # zypper in -y kernel-devel lapack-devel fftw-devel openblas-devel
 ```
 > [!NOTE]
-> gcc 在 kernel-devel 灌入。
+> - gcc 在 kernel-devel 灌入。
+
+```gcc --version``` 確認版本， Gromacs 須介於 9 到 11 之間。如果沒有，就用
+
+```
+Client :~ # zypper se gcc
+```
 
 ```
 Client :~ # zypper se openmpi
