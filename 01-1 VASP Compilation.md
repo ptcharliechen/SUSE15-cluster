@@ -100,7 +100,7 @@ patch -p0 < …/VASPsol-master/src/patches/pbz_patch_610
 
 > [!NOTE]
 > - patch 會去修改 src 裡的部分檔案，因此是在VASP的 src 裡運作，並引入 (“<“ 是標準輸入)patch的檔案。
-> - 在 SUSE15-cluster 裡有相關的 patch 可供下載。
+> - 在 [SUSE15-cluster](https://github.com/ptcharliechen/SUSE15-cluster/tree/main) 裡有相關的 patch 可供下載。
 
 patch 若有缺漏，請一個一個貼。
 
@@ -201,7 +201,7 @@ VASP 的晶胞優化 (ISIF = 3)允許在 9 个自由度上自由弛豫，想固�
 > - 由於製作 patch 的團隊是在 VASP 6.2.1 的環境，版本間難免會有些差距，若有缺漏，要一個個貼。
 > - patch 相關內容於：https://github.com/ptcharliechen/SUSE15-cluster/blob/main/01-0%20Before%20Compilation.md#patch
 
-可去 SUSE15-cluster 取得 cp-vasp6.patch
+可去 [SUSE15-cluster](https://github.com/ptcharliechen/SUSE15-cluster/tree/main) 取得 cp-vasp6.patch
 
 進入 src/ 的資料夾裡，輸入：
 
