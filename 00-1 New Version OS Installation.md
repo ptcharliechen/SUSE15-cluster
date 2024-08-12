@@ -46,6 +46,13 @@ Client :~ # zypper in -y kernel-devel lapack-devel fftw-devel openblas-devel
 ```
 > [!NOTE]
 > gcc 在 kernel-devel 灌入。
+
+```
+Client :~ # zypper se openmpi
+```
+
+找到合適的 OpenMPI 版本灌入，選用 OpenMPI 3 以上的版本。
+
 ```
 Client :~ # zypper se scalapack
 ```
