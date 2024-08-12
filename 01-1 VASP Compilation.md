@@ -209,7 +209,7 @@ patch -p0 < …/cp-vasp6.patch
 
 ![image](https://github.com/user-attachments/assets/13360ea1-b5ec-41ee-ae81-46940d830860)
 
-上圖是跑出來的結果，pot.F、reader.F 和 solvation.F 都跑出 FAILED，代表沒有 patch 成功或是有其他問題，進去這三個檔案確認，把缺的程式碼一個個在對應的地方貼上。
+上圖是跑出來的結果，pot.F、reader.F 和 solvation.F 都跑出 FAILED，代表沒有 patch 成功或是有其他問題，進去這三個檔案確認，把缺的程式碼一個個貼在對應的地方。
 
 ## DFT-D4
 
