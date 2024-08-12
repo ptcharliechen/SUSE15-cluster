@@ -42,28 +42,11 @@ Client :~ # ll /home
 
 ```
 Client :~ # /work1/pkg/pkg.sh
-Client :~ # zypper in -y kernel-devel lapack-devel fftw-devel openblas-devel
+Client :~ # zypper in -y kernel-devel lapack-devel fftw-devel openblas-devel gcc9 openmpi_3_1_6-gnu-hpc openmpi_3_1_6-gnu-hpc-devel libscalapack2_2_1_0-gnu-openmpi3-hpc libscalapack2_2_1_0-gnu-openmpi3-hpc-devel
 ```
 > [!NOTE]
 > - gcc 在 kernel-devel 灌入。
-
-```gcc --version``` 確認版本， Gromacs 須介於 9 到 11 之間。如果沒有，就用
-
-```
-Client :~ # zypper se gcc
-```
-
-```
-Client :~ # zypper se openmpi
-```
-
-選 OpenMPI 3 以上的版本灌入。
-
-```
-Client :~ # zypper se scalapack
-```
-
-找到合適的 ScaLAPACK 版本灌入，通常選用 OpenMPI 版。
+> - Gromacs 的 gcc 須介於 9 到 11 之間。灌入後看要用 update-alternatives 切換版本還是直接用 gcc-9 當 Gromacs 的編譯器。
 
 # Chrony
 
