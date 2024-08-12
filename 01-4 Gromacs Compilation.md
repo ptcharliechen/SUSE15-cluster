@@ -23,3 +23,4 @@ GMX_BUILD_OWN_FFTW 為 OFF 時，須保證作業系統裡有 FFTW。
 
 > [!NOTE]
 > - Xeon16 無法算 2023.3 版以及更新的版本。
+> - 在研究室機器編譯：先在伺服器 cmake，再到計算節點 make。
