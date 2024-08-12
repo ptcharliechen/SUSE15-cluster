@@ -102,6 +102,86 @@ LIB= lib parser pyamff_fortran
 
 由於該軟體的 patch 已多年沒有更新，截至今日 (2024/5/24)官方的 patch 已經刪除，或許近日會補上。 icc 仍可以用官方的 patch 進行編譯，放在 *VASPsol-master.zip* ，不過在 gcc 會報錯，筆者找了非官方的 patch ，放在這個 repository 的 Code 裡。
 
+## unit cell 基矢調整
+
+VASP 的晶胞優化 (ISIF = 3)允許在 9 个自由度上自由弛豫，想固定其中幾個自由度，需要將 constr_cell_relax.F 的程式碼以下文覆蓋。
+
+```
+!-----------------------------------------------------------------------
+!
+! At present, VASP does not allow to relax the cell shape selectively
+! i.e. for instance only cell relaxation in x direction.
+! To be more precise, this behaviour can not be achieved via the INCAR
+! or POSCAR file.
+! However, it is possible to set selected components of the stress tensor
+! to zero.
+! The most convenient position to do this is the routines 
+! CONSTR_CELL_RELAX  (constraint cell relaxation).
+! FCELL contains the forces on the basis vectors.
+! These forces are used to modify the basis vectors according
+! to the following equations:
+!
+!      A_OLD(1:3,1:3)=A(1:3,1:3) ! F90 style 
+!      DO J=1,3
+!      DO I=1,3
+!      DO K=1,3
+!        A(I,J)=A(I,J) + FCELL(I,K)*A_OLD(K,J)*STEP_SIZE
+!      ENDDO
+!      ENDDO
+!      ENDDO
+! where A holds the basis vectors (in cartesian coordinates).
+!
+!-----------------------------------------------------------------------
+
+      SUBROUTINE CONSTR_CELL_RELAX(FCELL)
+      USE prec
+      REAL(q) FCELL(3,3)
+
+!     just one simple example
+!     relaxation in x directions only
+!      SAVE=FCELL(1,1)
+!      FCELL=0   ! F90 style: set the whole array to zero
+!      FCELL(1,1)=SAVE
+!     relaxation in z direction only
+!      SAVE=FCELL(3,3)
+!      FCELL=0   ! F90 style: set the whole array to zero
+!      FCELL(3,3)=SAVE
+
+      LOGICAL FILFLG
+      INTEGER ICELL(3,3)
+      INQUIRE(FILE='OPTCELL',EXIST=FILFLG)
+      IF (FILFLG) THEN
+         OPEN(67,FILE='OPTCELL',FORM='FORMATTED',STATUS='OLD')
+         DO J=1,3
+            READ(67,"(3I1)") (ICELL(I,J),I=1,3)
+         ENDDO
+         CLOSE(67)
+         DO J=1,3
+         DO I=1,3
+            IF (ICELL(I,J)==0) FCELL(I,J)=0.0
+         ENDDO
+         ENDDO
+      ENDIF
+    
+      RETURN
+      END SUBROUTINE
+```
+
+> [!NOTE]
+> 摘要下篇引文：
+> 設定 ISIF = 3，並新建一個檔案 OPTCELL。僅想調整 $\vec{a}$ x 方向、 $\vec{b}$ x 和 y 方向，
+> 
+> OPTCELL 內文如下：
+>
+> ```
+> 100
+> 110
+> 000
+> ```
+> 1 是弛豫，0 是固定。
+
+參考：https://blog.shishiruqi.com//2019/05/05/constr/
+
 ## DFT-D4
 
 網址：[https://github.com/dftd4/dftd4](https://github.com/dftd4/dftd4)
