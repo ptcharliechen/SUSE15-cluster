@@ -48,6 +48,8 @@ Client :~ # zypper in -y kernel-devel lapack-devel fftw-devel openblas-devel gcc
 > - gcc 在 kernel-devel 灌入。
 > - Gromacs 的 gcc 須介於 9 到 11 之間。灌入後看要用 update-alternatives 切換版本還是直接用 gcc-9 當 Gromacs 的編譯器。
 
+update-alternatives 參考：https://then.tw/switch-gcc-versions-with-update-alternatives/
+
 # Chrony
 
 ```
