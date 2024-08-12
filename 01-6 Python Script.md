@@ -68,7 +68,10 @@ script/ 資料夾裡所有 .py 檔的第一行都有 ```#!/home/xxxx/...``` ， 
 
 script/kit 裡面的 accelerate.pyx 是用來加速部分計算的 script，以 Cython 寫成，以下是將 accelerate.pyx 利用 Cython 編譯器翻譯成高效 C++ 程式碼。
 
-打開 script/kit/setup.py，更換 shebang 的 Python 3 直譯器，執行 ```python3 setup.py build_ext --inplace```。
+打開 script/kit/setup.py，更換 shebang 的 Python 3 直譯器，執行
+```
+python3 setup.py build_ext --inplace
+```
 
 到新生成的 build 資料夾裡，用 ```ln -s``` 將 accelerate.o 和 accelerate.xxxx.so 連結到 script/kit。
 
