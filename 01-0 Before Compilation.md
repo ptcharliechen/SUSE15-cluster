@@ -1,12 +1,12 @@
 ## 函式庫 (Library)
-編譯時會把許多函式庫寫進參數檔 (VASP是 *makefile.include* ，Conquest是 *system.make* )，使編譯時可以鏈接，常見的函式庫有 *libgfortran.so* 、 *libblas.so* 、 *liblapack.so* 等， *libxxxx.so* 是固定命名方式。
+編譯時會把許多函式庫寫進參數檔 (VASP是 *makefile.include* ，CONQUEST是 *system.make* )，使編譯時可以鏈接，常見的函式庫有 *libgfortran.so* 、 *libblas.so* 、 *liblapack.so* 等， *libxxxx.so* 是固定命名方式。
 ```ldd /path/to/execution/file``` 可以看到該執行檔鏈接的函式庫，下圖以VASP641為例。
 
 ![圖片1](https://github.com/ptcharliechen/SUSE15-cluster/assets/128341777/b4d70903-ea37-4884-ae79-96600ff80830)
 
 *libxxxx.so*是固定命名方式，因此去頭去尾，```-l```後面接xxxx作為標記方式，例如：```-lblas```意旨要鏈接 *libblas.so* 函式庫。
 
-函式庫大多放在 */lib* 、 */lib64* 、 */usr/lib* 、 */usr/lib64* ，這些都是預設路徑，因此參數檔毋須詳加註明。如果是特別的函式庫路徑，會以```-L/path/of/library```表示，右為Conquest中scalapack的函式庫路徑：```-L/work1/***/Conquest/source/src/scalapack -lscalapack```，意即：到 */work1/\*\*\*/Conquest/source/src/scalapack* 找 *libscalapack.so* 函式庫。只寫```-llapack```就是到預設路徑找 *liblapack.so* 函式庫。
+函式庫大多放在 */lib* 、 */lib64* 、 */usr/lib* 、 */usr/lib64* ，這些都是預設路徑，因此參數檔毋須詳加註明。如果是特別的函式庫路徑，會以```-L/path/of/library```表示，右為 CONQUEST 中scalapack的函式庫路徑：```-L/work1/***/Conquest/source/src/scalapack -lscalapack```，意即：到 */work1/\*\*\*/Conquest/source/src/scalapack* 找 *libscalapack.so* 函式庫。只寫```-llapack```就是到預設路徑找 *liblapack.so* 函式庫。
 
 - 小練習
 1. 使用 Intel compiler 時，會去抓 mkl 資料庫的路徑，存在 *MKLROOT* 變數中，因此```-L$(MKLROOT)/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64```是什麼意思？順著路徑看看這些函式庫是否存在？
