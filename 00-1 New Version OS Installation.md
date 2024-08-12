@@ -57,7 +57,7 @@ Client :~ # zypper se gcc
 Client :~ # zypper se openmpi
 ```
 
-找到合適的 OpenMPI 版本灌入，選用 OpenMPI 3 以上的版本。
+選 OpenMPI 3 以上的版本灌入。
 
 ```
 Client :~ # zypper se scalapack
