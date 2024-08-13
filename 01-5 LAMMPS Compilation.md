@@ -6,8 +6,8 @@ make mpi -j32
 ```
 
 > [!NOTE]
-> `make yes-most` 只是將一些套件準備好「預備編譯」，而非真的編譯。
-> `make yes-most` 在 server 執行，`make mpi -j32` 在計算節點執行。
+> - `make yes-most` 只是將一些套件準備好「預備編譯」，而非真的編譯。
+> - `make yes-most` 在 server 執行，`make mpi -j32` 在計算節點執行。
 
 在 src/ 確認 lmp_mpi 存在。
 
