@@ -19,6 +19,13 @@ ls -l lmp_mpi
 
 ## GPU
 
+進入 GPU 節點，引入 OpenMPI 和 HPC SDK
+
+```
+source /usr/lib/hpc/gnu7/mpi/openmpi/3.1.6/bin/mpivars.sh
+source /opt/nvidia/hpc.sh
+```
+
 ```
 vim lib/gpu/Makefile.mpi
 ```
