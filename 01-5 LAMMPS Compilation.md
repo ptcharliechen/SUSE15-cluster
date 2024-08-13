@@ -9,4 +9,8 @@ make mpi -j32
 > `make yes-most` 只是將一些套件準備好「預備編譯」，而非真的編譯。
 > `make yes-most` 在 server 執行，`make mpi -j32` 在計算節點執行。
 
-供參：[https://blog.csdn.net/xukang95/article/details/89377180](https://blog.csdn.net/xukang95/article/details/89377180)
+供參：https://blog.csdn.net/xukang95/article/details/89377180
+
+## GPU
+
+供參：https://sites.google.com/site/rangsiman1993/comp-chem/program-install/install-lammps-pk-gpu?pli=1#h.p_lazO7LUaLY-6
