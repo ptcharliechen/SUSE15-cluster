@@ -183,6 +183,6 @@ Parallel 是利用多個 CPU 達到同時並行處理任務的需求，程式間
 
 Asynchronous: 一個櫃檯 (進程)的把工作丟給辦事員後領個號碼牌去做別的櫃檯丟其他工作，叫號 (回傳)時再收取結果並丟下一份工作。常見的程式語言是 JavaScript 和 Node.js 等常用於編寫網站的語言，主因是丟個 request 很快，但收到伺服器回復要一段時間，手上有多個工作時會等很久；缺點是有時候變數還尚未獲得回傳就需要用到該變數，就用非預期的值進行運算產生不如意的值。
 
-Synchronous: 一個櫃檯賦予一個工作並獲得會傳後才去下一個櫃檯辦事。常見的程式語言是不涉及 request 和 response 的程式語言。
+Synchronous: 一個櫃檯賦予一個工作並獲得回傳後才去下一個櫃檯辦事。常見的程式語言是不涉及 request 和 response 的程式語言，如：C/C++、Python。
 
 整理自 [非同步(Asynchronous)與同步(Synchronous)的差異](https://medium.com/@hyWang/%E9%9D%9E%E5%90%8C%E6%AD%A5-asynchronous-%E8%88%87%E5%90%8C%E6%AD%A5-synchronous-%E7%9A%84%E5%B7%AE%E7%95%B0-c7f99b9a298a)
