@@ -46,7 +46,7 @@ python3 -m venv public
 引入自編 script 所須的套件。
 
 ```
-pip3 install pandas matplotlib scipy Cython ase
+pip3 install pandas matplotlib seaborn scipy Cython ase
 ```
 
 script/ 資料夾裡所有 .py 檔的第一行都有 ```#!/home/xxxx/...``` ， "#!" 被稱為 shebang，用於指定編譯器或直譯器的路徑。不要一個個進去修改直譯器，善用 sed 一次修改。
