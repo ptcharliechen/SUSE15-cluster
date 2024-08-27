@@ -63,6 +63,7 @@ LIB = -L/usr/local/cuda -lcudart
 make no-all
 make yes-gpu
 make yes-most
+make no-openmp
 make gpu -j8
 ```
 
