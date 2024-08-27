@@ -92,3 +92,7 @@ ls -l lmp_gpu
 ```
 
 供參：https://sites.google.com/site/rangsiman1993/comp-chem/program-install/install-lammps-pk-gpu?pli=1#h.p_lazO7LUaLY-6
+
+https://hackmd.io/@isc21/rJY5v-AZO
+
+https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/
