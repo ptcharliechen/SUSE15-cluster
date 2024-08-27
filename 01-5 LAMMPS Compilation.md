@@ -65,6 +65,20 @@ make yes-gpu
 make gpu -j8
 ```
 
+使用的 MPI 指令為
+```
+mpirun -np 1 lmp_mpi -sf gpu -pk gpu 1 neigh no -i in.lmp
+```
+
+如果有兩個 GPU，可以改成
+```
+mpirun -np 2 lmp_mpi -sf gpu -pk gpu 2 neigh no -i in.lmp
+```
+
+> [!WARNING]
+> - 在 LAMMPS 中，一個 GPU 只能用一條 process，所以 -np 和 -pk gpu 必須相等，否則會報錯。
+> - -pk gpu N 後面必須要有 neigh no，否則也會報錯。
+
 > [!NOTE]
 > - ```make no-all``` 是關掉所有的 package， ```make yes-gpu``` 是打開 GPU 的 package。
 > - 用 ```make package-status``` 確認所有 package 是開還是關。
