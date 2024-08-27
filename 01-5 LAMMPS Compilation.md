@@ -64,7 +64,7 @@ make no-all
 make yes-gpu
 make yes-most
 make no-openmp
-make gpu -j8
+make mpi -j8
 ```
 
 使用的 MPI 指令為
