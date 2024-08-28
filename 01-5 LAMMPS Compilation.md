@@ -39,6 +39,8 @@ CUDA_LIB = -L$(CUDA_HOME)/lib64  -L$(CUDA_HOME)/lib64/stubs
 
 到 https://developer.nvidia.com/cuda-gpus 確認 CUDA_ARCH 的參數。以 v100 為例，Compute Capability 為 7.0，故取消註解 ```CUDA_ARCH = -arch=sm_70```。
 
+供參：https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/
+
 ```
 CUDA_ARCH
 ```
@@ -100,5 +102,3 @@ ls -l lmp_gpu
 供參：https://sites.google.com/site/rangsiman1993/comp-chem/program-install/install-lammps-pk-gpu?pli=1#h.p_lazO7LUaLY-6
 
 https://hackmd.io/@isc21/rJY5v-AZO
-
-https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/
