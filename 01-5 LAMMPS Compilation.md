@@ -37,6 +37,12 @@ CUDA_HOME = /usr/local/cuda
 CUDA_LIB = -L$(CUDA_HOME)/lib64  -L$(CUDA_HOME)/lib64/stubs
 ```
 
+到 https://developer.nvidia.com/cuda-gpus 確認 CUDA_ARCH 的參數。以 v100 為例，Compute Capability 為 7.0，故取消註解 ```CUDA_ARCH = -arch=sm_70```。
+
+```
+CUDA_ARCH
+```
+
 進入 lib/gpu
 
 ```
