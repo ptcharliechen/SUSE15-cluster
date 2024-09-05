@@ -1,7 +1,8 @@
 與 CPU 相同的部分參考網管筆記或 [github](https://github.com/HongScarlet/homework/blob/master/SUSE15%20cluster/15.%20SLES%2015%20Cluster%20New.md)，15SP5 或更新版的解說見[此](https://github.com/ptcharliechen/SUSE15-cluster/blob/main/00-1%20New%20Version%20OS%20Installation.md)，只講 GPU 的部分。
 
 > [!CAUTION]
-> 由於 HPC SDK 和 CUDA 版本必須互相搭配，所以先確定所使用的 HPC SDK 版本所搭配的 CUDA 的版本。
+> - CUDA 版本與 linux 核心版本須互相搭配，因此必須注意 CUDA 和 SLES 釋出的日期是否匹配，否則 driver 無法自動安裝。
+> - 由於 HPC SDK 和 CUDA 版本必須互相搭配，所以先確定所使用的 HPC SDK 版本所搭配的 CUDA 的版本。
 
 Nvidia HPC SDK 網址：[https://developer.nvidia.com/nvidia-hpc-sdk-releases](https://developer.nvidia.com/nvidia-hpc-sdk-releases)
 
@@ -25,7 +26,7 @@ CUDA 網址：[https://developer.nvidia.com/cuda-toolkit-archive](https://develo
 # CUDA
 
 > [!CAUTION]
-> CUDA 安裝之後發現弄錯要去掉很難去乾淨，甚至重灌比較快。
+> CUDA 安裝之後發現弄錯要去掉重裝可能會失敗，甚至重灌比較快。
 
 按下圖選擇按鈕，安裝方式選擇 rpm 。
 
