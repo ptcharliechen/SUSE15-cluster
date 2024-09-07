@@ -10,7 +10,7 @@ sda
 
 ## NTFS-3g
 
-硬碟的格式通常是 NTFS-3g，SLES 並沒有配備。
+硬碟格式通常是 NTFS-3g，SLES 並沒有配備，所以要先安裝 ntfs-3g 才能將備份的資料複製到 FTP。
 
 下載點：https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2022.10.3.tgz
 
@@ -22,6 +22,9 @@ make && make install
 ```
 
 就可以用 NTFS-3g 掛載硬碟 ```mount -t ntfs-3g /dev/sd** /mnt```。
+
+> [!NOTE]
+> 不建議使用 scp 轉移資料，超慢。
 
 ## 設定時間
 
