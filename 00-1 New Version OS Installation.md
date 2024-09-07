@@ -41,10 +41,7 @@ Client :~ # ll /home
 # 基礎套件安裝
 
 > [!CAUTION]
-> 如果要安裝 GPU (CUDA) 的話，先到 [00-2 節](https://github.com/ptcharliechen/SUSE15-cluster/blob/main/00-2%20GPU%20Node%20Installation.md)，在此之前先執行
-> ```
-> zypper in -y kernel-devel
-> ```
+> 如果要安裝 GPU (CUDA) 的話，先安裝 ```kernel-devel``` 後，再到 [00-2 節](https://github.com/ptcharliechen/SUSE15-cluster/blob/main/00-2%20GPU%20Node%20Installation.md) 安裝 CUDA 和 SDK 後再回來繼續下面的步驟。
 
 ```
 Client :~ # /work1/pkg/pkg.sh
