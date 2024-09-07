@@ -49,6 +49,14 @@ python3 -m venv public
 pip3 install pandas matplotlib seaborn scipy Cython ase
 ```
 
+> [!NOTE]
+> 如果出現 SSL 相關的 WARNING，如
+> ```
+> WARNING: Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by 'SSLError("Can't connect to HTTPS URL becas not available.")': /simple/pip/
+> ```
+> 先安裝 ```libopenssl-devel```。
+
+
 script/ 資料夾裡所有 .py 檔的第一行都有 ```#!/home/xxxx/...``` ， "#!" 被稱為 shebang，用於指定編譯器或直譯器的路徑。不要一個個進去修改直譯器，善用 sed 一次修改。
 
 > [!NOTE]
