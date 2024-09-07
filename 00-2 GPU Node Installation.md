@@ -4,6 +4,9 @@
 > - CUDA 版本與 linux 核心版本須互相搭配，因此必須注意 CUDA 和 SLES 釋出的日期是否匹配 (例如 CUDA 11.7 與 15SP4 搭配；CUDA 12.4 與 15SP5 搭配)，否則 CUDA driver 無法自動安裝。
 > - 由於 HPC SDK 和 CUDA 版本必須互相搭配，所以先確定所使用的 HPC SDK 版本所搭配的 CUDA 的版本。
 
+> [!CAUTION]
+> 安裝 kernel-devel、gcc-fortran、gcc-c++ 等與 Linux 核心相關的套件須與所使用的 SLES 版本一致 (更準確來說是 Linux driver 版本須與 kernel-devel 套件版本一致)，也就是說：裝完上述的套件後再用 /work1/pkg/pkg.sh 更換 module 的版本。
+
 Nvidia HPC SDK 網址：[https://developer.nvidia.com/nvidia-hpc-sdk-releases](https://developer.nvidia.com/nvidia-hpc-sdk-releases)
 
 CUDA 網址：[https://developer.nvidia.com/cuda-toolkit-archive](https://developer.nvidia.com/cuda-toolkit-archive)
