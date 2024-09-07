@@ -1,5 +1,11 @@
 ## 架構
 
+早期的 BIOS/MBR 硬碟分割最高只能 2 TB，隨著硬碟容量越來越大，現在多採用 UEFI/GPT 硬碟分割格式。
+
+研究室目前的 FTP 容量達 22 TB，分割硬碟時必須選擇 EFI，否則不能開機 (boot loader 會出問題)。
+
+![擷取](https://github.com/user-attachments/assets/75f233bc-578e-4428-913c-e9e692cb6696)
+
 ```
 sda
 ├─sdb1  128MB  /boot/efi
@@ -10,7 +16,9 @@ sda
 
 ## NTFS-3g
 
-硬碟格式通常是 NTFS-3g，SLES 並沒有配備，所以要先安裝 ntfs-3g 才能將備份的資料複製到 FTP。
+攜帶式硬碟格式通常是 NTFS-3g，SLES 並沒有配備，所以要先安裝 ntfs-3g 才能將備份的資料複製到 FTP。
+
+先安裝 gcc。
 
 下載點：https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2022.10.3.tgz
 
@@ -24,7 +32,7 @@ make && make install
 就可以用 NTFS-3g 掛載硬碟 ```mount -t ntfs-3g /dev/sd** /mnt```。
 
 > [!NOTE]
-> 不建議使用 scp 轉移資料，超慢。
+> 不建議使用 scp 轉移資料，超慢！
 
 ## 設定時間
 
