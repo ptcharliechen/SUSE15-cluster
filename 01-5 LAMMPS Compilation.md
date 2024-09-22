@@ -103,3 +103,26 @@ ls -l lmp_gpu
 供參：https://sites.google.com/site/rangsiman1993/comp-chem/program-install/install-lammps-pk-gpu?pli=1#h.p_lazO7LUaLY-6
 
 https://hackmd.io/@isc21/rJY5v-AZO
+
+## NequIP
+
+使用 Anaconda 安裝
+
+```
+conda install pytorch cudnn numpy=1.26.4
+pip3 install nequip
+```
+
+> [!NOTE]
+> - 儘管 NequIP 有建議的 pytorch 版本，仍用 conda 預設的版本，否則 cmake 會報錯。
+> - Numpy 近期推出 2.0 版，沒人知道會發生什麼事，用 1.0 版比較安全。
+
+```
+git clone https://github.com/mir-group/pair_nequip.git
+./patch_lammps.sh /path/to/lammps/
+cd lammps
+mkdir build
+cd build
+cmake ../cmake -DCMAKE_PREFIX_PATH=`python -c 'import torch;print(torch.utils.cmake_prefix_path)'`
+make -j$(nproc)
+```
