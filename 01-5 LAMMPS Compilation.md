@@ -106,16 +106,46 @@ https://hackmd.io/@isc21/rJY5v-AZO
 
 ## NequIP
 
-使用 Anaconda 安裝
+### 安裝套件
+
+使用 pip 安裝
 
 ```
-conda install pytorch cudnn numpy=1.26.4
+pip3 install numpy==1.24.1
+pip3 install torch==1.13.1+cu117 --extra-index-url https://download.pytorch.org/whl/cu117
 pip3 install nequip
 ```
 
 > [!NOTE]
-> - 儘管 NequIP 有建議的 pytorch 版本，仍用 conda 預設的版本，否則 cmake 會報錯。
+> - 用 NequIP 建議的 pytorch 版本較為安全。
 > - Numpy 近期推出 2.0 版，沒人知道會發生什麼事，用 1.0 版比較安全。
+
+```
+source /opt/nvidia/hpc.sh
+source /path/to/intel/mkl/path/var.sh
+```
+
+> [!NOTE]
+> CUDA compiler 用 nvcc，MKL 用 intel MKL 就好。
+
+### cuDNN
+
+如果有 cuDNN 就別管本節，這需要網管權限操作。
+
+到 https://developer.nvidia.com/cudnn-archive 取得 cuDNN，選擇 CUDA 11.x 8.9.x 版，然後用 **Local Installer for Linux x86_64 (Tar)**。
+
+下載後，執行
+
+```
+tar -Jxvf cudnn-linux-x86_64-8.9.x.xx_cuda11-archive.tar.xz
+```
+
+把 lib/ 放到 /usr/local/cuda/lib64，把 include/ 放到 /usr/local/cuda/include。
+
+> [!NOTE]
+> 放到 GPU 計算節點的 /usr/local/cuda，別放到 Server 的。
+
+### LAMMPS 外掛 NequIP
 
 ```
 git clone https://github.com/mir-group/pair_nequip.git
