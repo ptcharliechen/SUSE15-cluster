@@ -27,6 +27,6 @@ chmod 770 scratch
 export GAUSS_SCRDIR=/path/to/g16/scratch
 ```
 
-*scratch* 是計算時的臨時資料夾，必須隸屬在 g16 下面。
+*scratch* 是計算時的臨時資料夾，必須隸屬於 g16。
 
 供參：[http://bbs.keinsci.com/thread-10814-1-1.html](http://bbs.keinsci.com/thread-10814-1-1.html)、[http://bbs.keinsci.com/thread-14301-1-1.html](http://bbs.keinsci.com/thread-14301-1-1.html)
