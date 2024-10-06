@@ -29,4 +29,13 @@ export GAUSS_SCRDIR=/path/to/g16/scratch
 
 *scratch* 是計算時的臨時資料夾，必須隸屬於 g16。
 
+> [!NOTE]
+> 寫 slurm 檔一定要有
+> ```
+> export g16root=/path/to/g16/root
+> export GAUSS_SCRDIR=$g16root/g16/scratch
+> source $g16root/g16/bsd/g16.profile
+> ```
+> 否則抓不到 g16。
+
 供參：[http://bbs.keinsci.com/thread-10814-1-1.html](http://bbs.keinsci.com/thread-10814-1-1.html)、[http://bbs.keinsci.com/thread-14301-1-1.html](http://bbs.keinsci.com/thread-14301-1-1.html)
