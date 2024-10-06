@@ -40,4 +40,4 @@ export GAUSS_SCRDIR=$g16root/g16/scratch
 
 g09 編譯方式同理。
 
-供參：[http://bbs.keinsci.com/thread-10814-1-1.html](http://bbs.keinsci.com/thread-10814-1-1.html)、[http://bbs.keinsci.com/thread-14301-1-1.html](http://bbs.keinsci.com/thread-14301-1-1.html)
+供參：[http://bbs.keinsci.com/thread-10814-1-1.html](http://bbs.keinsci.com/thread-10814-1-1.html)、[http://bbs.keinsci.com/thread-14301-1-1.html](http://bbs.keinsci.com/thread-14301-1-1.html)、[https://gaussian.com/running/](https://gaussian.com/running/)
