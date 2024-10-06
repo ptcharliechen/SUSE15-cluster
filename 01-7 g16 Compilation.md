@@ -14,8 +14,8 @@ bsd/bldg16
 約等四十分鐘編譯完成。
 
 ```
-chmod -R 750 /path/to/g16
-chown -R root:[cluster group] /path/to/g16
+chmod -R 750 $g16root/g16
+chown -R root:[cluster group] $g16root/g16
 ```
 
 由於 Gaussian 要求必須在同群組內才能操作 (權限不能設 777)，所以要把權限設為 750，並把 Gaussian 加入 cluster 成員所在的群組裡。
@@ -24,7 +24,7 @@ chown -R root:[cluster group] /path/to/g16
 cd g16/
 mkdir scratch
 chmod 770 scratch
-export GAUSS_SCRDIR=/path/to/g16/scratch
+export GAUSS_SCRDIR=$g16root/g16/scratch
 ```
 
 *scratch* 是計算時的臨時資料夾，必須隸屬於 g16。
@@ -37,5 +37,7 @@ export GAUSS_SCRDIR=/path/to/g16/scratch
 > source $g16root/g16/bsd/g16.profile
 > ```
 > 否則抓不到 g16。
+
+g09 編譯方式同理。
 
 供參：[http://bbs.keinsci.com/thread-10814-1-1.html](http://bbs.keinsci.com/thread-10814-1-1.html)、[http://bbs.keinsci.com/thread-14301-1-1.html](http://bbs.keinsci.com/thread-14301-1-1.html)
