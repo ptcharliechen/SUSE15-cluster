@@ -12,12 +12,10 @@
 ```
 mkdir build 
 cd build
-cmake .. -DGMX_BUILD_OWN_FFTW=OFF -DREGRESSIONTEST_DOWNLOAD=ON -DCMAKE_INSTALL_PREFIX=/path/of/gromacs -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DGMX_MPI=ON -DGMX_GPU=OFF
+cmake .. -DGMX_BUILD_OWN_FFTW=OFF -DREGRESSIONTEST_DOWNLOAD=OFF -DCMAKE_INSTALL_PREFIX=/path/of/gromacs -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DGMX_MPI=ON -DGMX_GPU=OFF
 make && make check
 make install
 ```
-
-REGRESSIONTEST_DOWNLOAD 為 ON 時會去網路下載 Regressiontest，故編譯節點必須有網路，否則會 cmake 會中止處理。
 
 GMX_BUILD_OWN_FFTW 為 OFF 時，須保證作業系統裡有 FFTW。
 
