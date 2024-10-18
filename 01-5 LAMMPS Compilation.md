@@ -140,19 +140,21 @@ source /path/to/intel/mkl/path/var.sh
 tar -Jxvf cudnn-linux-x86_64-8.9.x.xx_cuda11-archive.tar.xz
 ```
 
-把 lib/ 放到 /usr/local/cuda/lib64，把 include/ 放到 /usr/local/cuda/include。
-
-> [!NOTE]
-> 放到 GPU 計算節點的 /usr/local/cuda，別放到 Server 的。
+把 lib/ 放到 GPU 計算節點的 /usr/local/cuda/lib64，把 include/ 放到 /usr/local/cuda/include。
 
 ### LAMMPS 外掛 NequIP
 
 ```
 git clone https://github.com/mir-group/pair_nequip.git
 ./patch_lammps.sh /path/to/lammps/
+source /opt/nvidia/hpc.sh
+export LD_LIBRARY_PATH=/usr/local/cuda:$LD_LIBRARY_PATH
 cd lammps
 mkdir build
 cd build
 cmake ../cmake -DCMAKE_PREFIX_PATH=`python -c 'import torch;print(torch.utils.cmake_prefix_path)'`
 make -j$(nproc)
 ```
+
+> [!NOTE]
+> 抓 CUDA 以及 cuDNN 等 library 的路徑。
