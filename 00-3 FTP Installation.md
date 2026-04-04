@@ -61,7 +61,7 @@ hwclock --hctosys
 
 下圖即是 **/etc/passwd** 部分內容，只複製 video 的成員，其他維持原樣。
 
-![擷取2](https://github.com/user-attachments/assets/01d13e4e-fe76-4c82-bbd0-f6a7372e293e)
+<img width="595" height="396" alt="350740400-01d13e4e-fe76-4c82-bbd0-f6a7372e293e" src="https://github.com/user-attachments/assets/ebd0247c-84bd-498c-8d83-ffdaa3aba98b" />
 
 **/etc/passwd** 其他部分、 **/etc/group** 和 **/etc/shadow** 比照辦理。
 
